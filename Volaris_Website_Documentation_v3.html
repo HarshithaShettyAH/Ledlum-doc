@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Volaris — Website Design Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Jost:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet"/>
+<style>
+
+/* ═══════════════════════════════════════════════
+   BRAND TOKENS — Volaris Logo Colours
+   Crimson red, warm ivory, deep wine, gold accent
+═══════════════════════════════════════════════ */
+:root {
+  /* Brand Reds — from the logo */
+  --crimson:      #8b1a1a;   /* primary brand red */
+  --crimson-deep: #6b1212;   /* darker, nav/hero */
+  --wine:         #5a0f0f;   /* deepest, footer */
+  --crimson-mid:  #a82020;   /* hover, accents */
+  --crimson-pale: #f5e8e8;   /* light tint bg */
+
+  /* Neutrals — warm ivory tones */
+  --ivory:        #faf6f0;   /* page background */
+  --parchment:    #f2ebe0;   /* section bg */
+  --linen:        #e8ddd0;   /* card borders, dividers */
+  --paper:        #ffffff;
+
+  /* Text */
+  --ink:          #1e0e0e;   /* headings */
+  --umber:        #4a2828;   /* body text */
+  --stone:        #8a6a6a;   /* secondary/labels */
+  --dust:         #c4aaaa;   /* subtle borders */
+
+  /* Gold accent — from logo script curl */
+  --gold:         #c49a28;   /* sparingly — matches logo script */
+
+  /* Semantic */
+  --bg:           var(--ivory);
+  --surface:      var(--paper);
+  --border:       var(--linen);
+
+  /* Type */
+  --ff-display: 'Playfair Display', Georgia, serif;
+  --ff-body:    'Jost', system-ui, sans-serif;
+  --ff-text:    'Crimson Pro', Georgia, serif;
+
+  --r:    8px;
+  --r-lg: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--ff-body);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════════
+   COVER — Two clean separate panels, no overlap
+═══════════════════════════════════════════════ */
+.cover {
+  min-height: 100vh;
+  background: var(--wine);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle texture overlay */
+.cover::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 80%, rgba(139,26,26,.4) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 90% 10%, rgba(196,154,40,.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.cover-left {
+  position: relative; z-index: 2;
+  padding: 72px 60px 72px 72px;
+  border-right: 1px solid rgba(255,255,255,.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.cover-right {
+  position: relative; z-index: 2;
+  padding: 72px 72px 72px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+}
+
+/* Brand mark */
+.cover-eyebrow {
+  font-family: var(--ff-body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  margin-bottom: 20px;
+}
+
+.cover-logo {
+  font-family: var(--ff-display);
+  font-size: 80px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+.cover-tagline {
+  font-family: var(--ff-text);
+  font-size: 20px;
+  font-style: italic;
+  color: rgba(255,255,255,.45);
+  margin-top: 16px;
+}
+
+.cover-rule {
+  width: 48px; height: 2px;
+  background: var(--gold);
+  margin-top: 24px;
+}
+
+.cover-desc {
+  font-family: var(--ff-text);
+  font-size: 16px;
+  color: rgba(255,255,255,.5);
+  line-height: 1.85;
+  max-width: 380px;
+  margin-top: 20px;
+}
+
+/* Stat grid — bottom of left col */
+.cover-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.cover-stat {
+  padding: 18px 20px;
+  background: rgba(0,0,0,.15);
+}
+.cover-stat label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.25);
+  margin-bottom: 5px;
+}
+.cover-stat span {
+  font-family: var(--ff-display);
+  font-size: 18px;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* TOC on right panel */
+.cover-toc-heading {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 12px;
+  margin-top: 20px;
+}
+.cover-toc-heading:first-child { margin-top: 0; }
+
+.cover-toc-item {
+  font-size: 13px;
+  color: rgba(255,255,255,.5);
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  display: flex;
+  gap: 10px;
+}
+.cover-toc-item:last-child { border-bottom: none; }
+.cover-toc-num {
+  font-family: var(--ff-body);
+  font-size: 10px;
+  color: rgba(255,255,255,.2);
+  width: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ═══════════════════════════════════════════════
+   DOCUMENT BODY
+═══════════════════════════════════════════════ */
+.doc {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 52px 100px;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION STRUCTURE
+═══════════════════════════════════════════════ */
+.sec { margin-top: 80px; }
+
+.sec-head {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding-bottom: 20px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.sec-num {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--crimson);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.sec-num.gold { background: var(--gold); color: var(--wine); }
+
+.sec-title {
+  font-family: var(--ff-display);
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.15;
+}
+.sec-sub {
+  font-family: var(--ff-text);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--stone);
+  margin-top: 4px;
+}
+
+.subsec {
+  font-family: var(--ff-display);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 36px 0 14px;
+  padding-left: 14px;
+  border-left: 3px solid var(--crimson);
+}
+
+/* ═══════════════════════════════════════════════
+   CARDS
+═══════════════════════════════════════════════ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 24px 26px;
+}
+.card + .card { margin-top: 12px; }
+
+/* ═══════════════════════════════════════════════
+   GRIDS
+═══════════════════════════════════════════════ */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+/* ═══════════════════════════════════════════════
+   COMPETITOR CARDS
+═══════════════════════════════════════════════ */
+.comp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.comp-head {
+  padding: 18px 22px;
+  display: flex; align-items: center; gap: 12px;
+}
+.comp-icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.comp-head h3 { font-size: 15px; font-weight: 600; color: #fff; }
+.comp-head small { font-size: 11px; color: rgba(255,255,255,.4); display: block; margin-top: 2px; }
+.comp-body { padding: 18px 22px; }
+.comp-body p { font-size: 13px; color: var(--umber); line-height: 1.75; margin-bottom: 14px; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 12px; }
+.tag {
+  font-size: 11px; font-weight: 500;
+  padding: 3px 10px; border-radius: 100px;
+  border: 1px solid var(--border);
+  background: var(--parchment);
+  color: var(--umber);
+}
+.tag.red   { background: var(--crimson-pale); border-color: var(--dust); color: var(--crimson); }
+.tag.gold  { background: #fdf5e0; border-color: #e8d090; color: #7a5a10; }
+.tag.sage  { background: #edf4ef; border-color: #9dc4a5; color: #3a6045; }
+
+.pros-cons { font-size: 12px; line-height: 2.2; }
+.pros-cons .y { color: #3a6045; }
+.pros-cons .n { color: var(--crimson); }
+
+/* ═══════════════════════════════════════════════
+   INSPIRATION CARDS
+═══════════════════════════════════════════════ */
+.insp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.insp-prev {
+  height: 172px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.site-badge {
+  position: absolute; bottom: 10px; right: 10px;
+  background: rgba(0,0,0,.4); color: rgba(255,255,255,.55);
+  font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 3px;
+}
+.insp-body { padding: 16px 20px; }
+.insp-body h4 {
+  font-family: var(--ff-display);
+  font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 3px;
+}
+.insp-body .url {
+  font-size: 11px; color: var(--stone); font-style: italic; margin-bottom: 9px;
+}
+.insp-body p { font-size: 13px; color: var(--umber); line-height: 1.7; margin-bottom: 10px; }
+.steal { list-style: none; font-size: 12px; }
+.steal li { padding: 4px 0 4px 14px; border-bottom: 1px dashed var(--border); position: relative; color: var(--umber); }
+.steal li::before { content: '→'; position: absolute; left: 0; color: var(--crimson); }
+.steal li:last-child { border-bottom: none; }
+
+/* ═══════════════════════════════════════════════
+   CALLOUTS
+═══════════════════════════════════════════════ */
+.callout {
+  border-radius: var(--r-lg);
+  padding: 22px 26px;
+  margin: 16px 0;
+}
+.callout.wine { background: var(--wine); color: rgba(255,255,255,.75); }
+.callout.wine h4 { color: #f0c0a0; font-family: var(--ff-display); font-size: 18px; margin-bottom: 10px; }
+.callout.red   { background: var(--crimson-pale); border-left: 3px solid var(--crimson); }
+.callout.red h4 { color: var(--crimson); font-weight: 700; margin-bottom: 8px; font-size: 14px; }
+.callout.gold  { background: #fdf8ec; border-left: 3px solid var(--gold); }
+.callout.gold h4 { color: #7a5a10; font-weight: 700; margin-bottom: 8px; font-size: 14px; }
+.callout.sage  { background: #edf4ef; border-left: 3px solid #4a8060; }
+.callout.sage h4 { color: #2a5040; font-weight: 700; margin-bottom: 8px; font-size: 14px; }
+.callout p, .callout li { font-size: 13px; line-height: 1.8; }
+.callout ul { padding-left: 18px; }
+.callout ul li { margin-bottom: 4px; }
+
+/* ═══════════════════════════════════════════════
+   TABLES
+═══════════════════════════════════════════════ */
+.tbl-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  background: var(--crimson-deep);
+  color: rgba(255,255,255,.85);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 11px; letter-spacing: .5px;
+}
+th.accent-col { background: var(--gold); color: var(--wine); }
+td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: #fdfaf8; }
+.yes  { color: #2a6040; font-weight: 700; }
+.no   { color: var(--crimson); font-weight: 700; }
+.part { color: #8a6010; font-weight: 700; }
+
+/* ═══════════════════════════════════════════════
+   BROWSER FRAME
+═══════════════════════════════════════════════ */
+.browser {
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(90,15,15,.08);
+  margin: 14px 0;
+}
+.brow-bar {
+  background: #f0ebe5;
+  padding: 8px 14px;
+  display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.dots { display: flex; gap: 5px; }
+.dots span { width: 10px; height: 10px; border-radius: 50%; }
+.dots span:nth-child(1) { background: #ff5f57; }
+.dots span:nth-child(2) { background: #ffbd2e; }
+.dots span:nth-child(3) { background: #28c840; }
+.url-bar {
+  flex: 1; background: #fff;
+  border: 1px solid var(--border); border-radius: 5px;
+  padding: 4px 12px; font-size: 11px; color: var(--stone);
+}
+
+/* ═══════════════════════════════════════════════
+   NAV MOCKUP
+═══════════════════════════════════════════════ */
+.nav-m {
+  background: var(--crimson-deep);
+  height: 54px; padding: 0 28px;
+  display: flex; align-items: center; gap: 4px;
+}
+.nav-m-logo {
+  font-family: var(--ff-display);
+  font-size: 20px; font-weight: 700; color: #fff;
+  flex: 1; letter-spacing: -.5px;
+}
+.nav-m-link {
+  font-size: 12px; color: rgba(255,255,255,.55);
+  padding: 8px 12px; border-radius: 4px;
+}
+.nav-m-cta {
+  background: var(--gold); color: var(--wine);
+  font-size: 12px; font-weight: 700;
+  padding: 8px 18px; border-radius: 5px; margin-left: 8px;
+}
+
+/* ═══════════════════════════════════════════════
+   WIREFRAME LAYOUT BLOCKS
+═══════════════════════════════════════════════ */
+.lbg { background: var(--parchment); padding: 10px; display: flex; flex-direction: column; gap: 3px; }
+.lb { border-radius: 6px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 11px; font-weight: 500; }
+
+.lb-hero {
+  background: linear-gradient(155deg, var(--wine) 0%, var(--crimson-deep) 100%);
+  height: 256px; flex-direction: column; gap: 10px;
+  color: rgba(255,255,255,.85);
+}
+.lb-ticker {
+  background: var(--crimson); color: rgba(255,255,255,.85);
+  height: 34px; font-size: 11px;
+}
+.lb-intro {
+  background: #fff; padding: 30px 28px; text-align: center;
+}
+.lb-catgrid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; height: 150px;
+}
+.lb-catgrid div {
+  background: var(--crimson-pale); border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; color: var(--crimson);
+  flex-direction: column; gap: 4px;
+}
+.lb-feat {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; height: 190px;
+}
+.lb-feat div {
+  border-radius: 5px; background: var(--linen);
+  display: flex; align-items: flex-end; padding: 10px;
+  font-size: 10px; font-weight: 600; color: var(--umber);
+}
+.lb-brand {
+  background: linear-gradient(155deg, var(--crimson-deep), var(--wine));
+  height: 180px; flex-direction: column; gap: 8px;
+  color: rgba(255,255,255,.7);
+}
+.lb-ctastrip {
+  background: var(--parchment); height: 90px;
+  flex-direction: column; gap: 6px;
+}
+.lb-footer {
+  background: var(--wine); color: rgba(255,255,255,.3);
+  height: 76px; font-size: 11px;
+}
+
+/* ═══════════════════════════════════════════════
+   PRODUCT CARD
+═══════════════════════════════════════════════ */
+.prod-card {
+  background: var(--ivory);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.prod-img {
+  height: 148px;
+  background: linear-gradient(135deg, var(--linen), #d8ccc0);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px; position: relative;
+}
+.prod-badges {
+  position: absolute; top: 8px; left: 8px;
+  display: flex; flex-direction: column; gap: 3px;
+}
+.pb { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; letter-spacing: .5px; }
+.pb-dc  { background: var(--crimson-deep); color: #fff; }
+.pb-led { background: var(--gold); color: var(--wine); }
+.pb-rem { background: #2a6040; color: #fff; }
+.prod-body { padding: 12px 14px; }
+.prod-code { font-size: 10px; color: var(--stone); letter-spacing: 1px; text-transform: uppercase; }
+.prod-name { font-family: var(--ff-display); font-size: 16px; font-weight: 500; color: var(--ink); margin-top: 2px; }
+.prod-spec { font-size: 11px; color: var(--stone); margin-top: 2px; }
+.prod-swatches { display: flex; gap: 5px; margin-top: 8px; }
+.sw { width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid var(--border); }
+.prod-cta {
+  display: block; margin-top: 10px;
+  background: var(--crimson-deep); color: #fff;
+  text-align: center; padding: 8px; border-radius: 5px;
+  font-size: 11px; font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════
+   PDP WIREFRAME
+═══════════════════════════════════════════════ */
+.pdp-wrap {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px;
+  background: #fff; padding: 22px 28px;
+}
+.pdp-main-img {
+  background: linear-gradient(135deg, var(--linen), #d8ccc0);
+  height: 272px; border-radius: var(--r);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 52px; position: relative;
+}
+.pdp-thumbs { display: flex; gap: 7px; margin-top: 8px; }
+.pdp-thumbs div { width: 58px; height: 58px; background: var(--linen); border-radius: 5px; border: 1.5px solid var(--border); }
+.pdp-thumbs div:first-child { border-color: var(--crimson); }
+.pdp-info {}
+.pdp-crumb { font-size: 11px; color: var(--stone); margin-bottom: 10px; }
+.pdp-code  { font-size: 10px; color: var(--stone); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 3px; }
+.pdp-name  { font-family: var(--ff-display); font-size: 30px; font-weight: 600; color: var(--ink); margin-bottom: 10px; line-height: 1.1; }
+.spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin: 12px 0; }
+.spec-cell { background: var(--parchment); padding: 9px 11px; border-radius: 6px; }
+.spec-cell label { font-size: 9px; color: var(--stone); letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 2px; }
+.spec-cell span  { font-size: 13px; font-weight: 600; color: var(--ink); }
+.cmm-bar-wrap { background: var(--parchment); border-radius: 6px; padding: 11px 13px; margin: 10px 0; }
+.cmm-bar-top { display: flex; justify-content: space-between; margin-bottom: 5px; }
+.cmm-bar-top span:first-child { font-size: 11px; font-weight: 600; color: var(--ink); }
+.cmm-bar-top span:last-child  { font-size: 13px; font-weight: 700; color: var(--crimson); }
+.cmm-bar { background: var(--dust); border-radius: 3px; height: 5px; overflow: hidden; }
+.cmm-bar div { background: linear-gradient(90deg, var(--crimson), var(--crimson-mid)); height: 100%; border-radius: 3px; }
+.cmm-note { font-size: 10px; color: var(--stone); margin-top: 4px; }
+.colour-row { display: flex; gap: 8px; margin: 8px 0 14px; }
+.col-sw { width: 24px; height: 24px; border-radius: 50%; }
+.pdp-cta-row { display: flex; gap: 8px; margin-top: 12px; }
+.cta-p { flex: 1; background: var(--crimson-deep); color: #fff; text-align: center; padding: 11px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+.cta-s { background: var(--gold); color: var(--wine); padding: 11px 15px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+.pdp-note { font-size: 11px; color: var(--stone); text-align: center; margin-top: 8px; }
+.pdp-tabs { margin-top: 18px; border-top: 1px solid var(--border); padding-top: 14px; }
+.tab-row { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+.tab { padding: 8px 15px; font-size: 12px; color: var(--stone); }
+.tab.on { color: var(--crimson); font-weight: 700; border-bottom: 2px solid var(--crimson); }
+
+/* ═══════════════════════════════════════════════
+   SITEMAP
+═══════════════════════════════════════════════ */
+.sitemap-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 32px 36px;
+}
+.sm-root {
+  background: var(--crimson-deep); color: #fff;
+  font-family: var(--ff-display); font-size: 16px; font-weight: 600;
+  text-align: center; padding: 12px 24px; border-radius: var(--r);
+  width: 180px; margin: 0 auto 24px;
+}
+.sm-cols { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.sm-page {
+  background: var(--crimson); color: #fff;
+  text-align: center; padding: 8px; border-radius: 5px;
+  font-size: 11px; font-weight: 600; margin-bottom: 5px;
+}
+.sm-page.g { background: var(--gold); color: var(--wine); }
+.sm-item {
+  background: var(--parchment); border: 1px solid var(--border);
+  font-size: 10px; color: var(--umber);
+  padding: 5px 7px; border-radius: 4px; text-align: center; margin-bottom: 3px;
+}
+
+/* ═══════════════════════════════════════════════
+   COLOUR PALETTE SWATCHES
+═══════════════════════════════════════════════ */
+.palette { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
+.sw-card { width: 114px; border-radius: var(--r); border: 1px solid var(--border); overflow: hidden; }
+.sw-block { height: 60px; }
+.sw-info { background: #fff; padding: 8px 10px; }
+.sw-info strong { display: block; font-size: 12px; font-weight: 600; color: var(--ink); }
+.sw-info code { font-size: 10px; color: var(--stone); }
+.sw-info small { display: block; font-size: 10px; color: var(--stone); margin-top: 1px; }
+
+/* ═══════════════════════════════════════════════
+   PRIORITY BADGES
+═══════════════════════════════════════════════ */
+.pr { display: inline-block; padding: 2px 9px; border-radius: 100px; font-size: 10px; font-weight: 600; }
+.pr-1 { background: var(--gold); color: var(--wine); }
+.pr-2 { background: var(--crimson-deep); color: #fff; }
+.pr-3 { background: var(--parchment); color: var(--umber); border: 1px solid var(--border); }
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+.doc-footer {
+  background: var(--wine);
+  color: rgba(255,255,255,.3);
+  text-align: center;
+  padding: 32px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.doc-footer strong { color: rgba(255,255,255,.55); }
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════
+     COVER  —  Two clean columns, zero bleed
+══════════════════════════════════════════════════ -->
+<div class="cover">
+
+  <!-- LEFT: Brand identity + stats -->
+  <div class="cover-left">
+    <div>
+      <p class="cover-eyebrow">Brand Strategy · Website Design Documentation · 2025</p>
+      <div class="cover-logo">VOLARIS</div>
+      <p class="cover-tagline">Crafting Airflow. Crafting Luxury.</p>
+      <div class="cover-rule"></div>
+      <p class="cover-desc">A complete design blueprint for the Volaris brand website — informed by the full 2025 catalogue. A warm, editorial presence that inspires desire, guides visitors to a dealer, and puts the full catalogue in their hands.</p>
+    </div>
+    <div class="cover-stats">
+      <div class="cover-stat"><label>Brand Position</label><span>Designer Fans</span></div>
+      <div class="cover-stat"><label>Website Type</label><span>Brand / Portfolio</span></div>
+      <div class="cover-stat"><label>Primary CTA</label><span>Download Catalogue</span></div>
+      <div class="cover-stat"><label>Total Designs</label><span>90+ Models</span></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Table of contents -->
+  <div class="cover-right">
+    <div>
+      <p class="cover-toc-heading">Research</p>
+      <div class="cover-toc-item"><span class="cover-toc-num">§1</span>Competitor Analysis — Luft Fans · Anemos · Fanzart</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§2</span>Design Inspiration — Layer · Joshua's · Studio Dado</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§3</span>What Volaris Does Differently</div>
+
+      <p class="cover-toc-heading">Design Blueprint</p>
+      <div class="cover-toc-item"><span class="cover-toc-num">§4</span>Site Map — 5 pages, designer brand focus</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§5</span>Page Wireframes — Homepage · Collections · Product</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§6</span>Navigation & Footer Structure</div>
+
+      <p class="cover-toc-heading">Visual System</p>
+      <div class="cover-toc-item"><span class="cover-toc-num">§7</span>Product Fields & Information Architecture</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§8</span>Colour Palette · Typography · Brand Voice</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§9</span>Mobile Strategy</div>
+
+      <p class="cover-toc-heading">Strategy</p>
+      <div class="cover-toc-item"><span class="cover-toc-num">§10</span>The Catalogue-First Philosophy</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§11</span>House of Ledlum · Warranty · Brand Heritage</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§12</span>Build Priority Roadmap</div>
+    </div>
+  </div>
+
+</div><!-- /cover -->
+
+<div class="doc">
+
+<!-- ══════════════════════════════════════════════════
+     §1  COMPETITOR ANALYSIS
+══════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-num">1</div>
+    <div>
+      <div class="sec-title">Competitor Analysis</div>
+      <div class="sec-sub">Live research from all three competitor websites — structure, pages, strengths, and gaps</div>
+    </div>
+  </div>
+
+  <div class="g3">
+
+    <div class="comp-card">
+      <div class="comp-head" style="background:linear-gradient(135deg,#111827,#1f2937);">
+        <div class="comp-icon">🌬</div>
+        <div><h3>Luft Fans</h3><small>luftfans.com · Shopify · ₹18,500–₹90,500</small></div>
+      </div>
+      <div class="comp-body">
+        <p>Clean, product-led Shopify store. The standout move is their <strong>AIRFEEL™ metric</strong> — a 1–10 comfort score shown alongside a product video. No technical specifications are shown on any product page. 75 products in the ceiling/wall category with sort order only — zero filter capability.</p>
+        <p style="font-size:11px;font-weight:600;color:var(--ink);margin-bottom:5px;">Pages in navigation</p>
+        <div class="tags">
+          <span class="tag">Home</span><span class="tag">Ceiling / Wall Fan</span><span class="tag">Floor / Table Fan</span>
+          <span class="tag">Exhaust Fans</span><span class="tag">About Us</span><span class="tag">Contact</span>
+          <span class="tag gold">Catalogue PDF ↗</span>
+        </div>
+        <p style="font-size:11px;font-weight:600;color:var(--ink);margin-bottom:5px;">Homepage sections observed</p>
+        <div class="tags">
+          <span class="tag">Hero slider (3 slides)</span><span class="tag">Bestsellers</span>
+          <span class="tag">New Arrivals</span><span class="tag">AIRFEEL™ + video</span><span class="tag">Fresh Designs grid</span>
+        </div>
+        <div class="pros-cons">
+          <div class="y">✓ AIRFEEL™ is a sharp, ownable comfort metric</div>
+          <div class="y">✓ Strong product photography, colour swatches on cards</div>
+          <div class="y">✓ Catalogue PDF available (small nav link)</div>
+          <div class="n">✗ No wattage, RPM, CMM or specs on product pages</div>
+          <div class="n">✗ 75 products, no filters — just sort order</div>
+          <div class="n">✗ Wall fans mixed with ceiling fans — confusing</div>
+          <div class="n">✗ No brand story, no warranty page, no blog</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-head" style="background:linear-gradient(135deg,#1b3a2d,#0f2219);">
+        <div class="comp-icon">🍃</div>
+        <div><h3>Anemos</h3><small>anemos.in · Shopify · Mumbai · est. 2005</small></div>
+      </div>
+      <div class="comp-body">
+        <p>India's oldest premium fan curator, stocking international brands. The most complete page structure of the three — active blog, store locator, clients page, and full policy pages. But the visual identity is a default Shopify Dawn theme with no personality.</p>
+        <p style="font-size:11px;font-weight:600;color:var(--ink);margin-bottom:5px;">Navigation (confirmed live)</p>
+        <div class="tags">
+          <span class="tag">Home</span><span class="tag">About</span><span class="tag">Fans ▾</span>
+          <span class="tag">Audio</span><span class="tag">Sale</span><span class="tag">Blogs</span>
+          <span class="tag sage">Store Locator</span><span class="tag sage">Clients</span><span class="tag">Media</span><span class="tag">Contact</span>
+        </div>
+        <p style="font-size:11px;font-weight:600;color:var(--ink);margin-bottom:5px;">Fans sub-menu (confirmed)</p>
+        <div class="tags">
+          <span class="tag">Ceiling</span><span class="tag">Table</span><span class="tag">Wall</span>
+          <span class="tag">Pedestal</span><span class="tag">Bladeless</span>
+          <span class="tag gold">Bespoke</span><span class="tag">New Arrival</span>
+        </div>
+        <div class="pros-cons">
+          <div class="y">✓ Best page structure of all three — blog, FAQ, policies, locator</div>
+          <div class="y">✓ Bespoke / custom fans category is a smart premium tier</div>
+          <div class="y">✓ Clients page demonstrates B2B credibility</div>
+          <div class="y">✓ Physical address shown — Raghuvanshi Mills, Mumbai</div>
+          <div class="n">✗ Default Shopify theme — no brand visual identity</div>
+          <div class="n">✗ Sells Audio alongside fans — weakens brand focus</div>
+          <div class="n">✗ No filtering, no comparison, no spec education</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-head" style="background:linear-gradient(135deg,#3d1050,#2a0838);">
+        <div class="comp-icon">✦</div>
+        <div><h3>Fanzart</h3><small>fanzartfans.com · Enquiry-only · 140+ showrooms</small></div>
+      </div>
+      <div class="comp-body">
+        <p>India's market leader in luxury ceiling fans — 200+ designs, 140+ showrooms, 135K Instagram followers. They invented the Fandeliers® category (fan + chandelier). No e-commerce at all; the website purely drives showroom visits and enquiries.</p>
+        <p style="font-size:11px;font-weight:600;color:var(--ink);margin-bottom:5px;">Key product differentiators</p>
+        <div class="tags">
+          <span class="tag red">Fandeliers® trademark</span><span class="tag red">Smart WiFi series</span>
+          <span class="tag">BLDC motor</span><span class="tag">Whisper-quiet dB</span>
+          <span class="tag">Summer / Winter mode</span><span class="tag">"Best Suited For" guide</span>
+        </div>
+        <p style="font-size:11px;font-weight:600;color:var(--ink);margin-bottom:5px;">Why they lead the market</p>
+        <div class="tags">
+          <span class="tag">135K+ Instagram</span><span class="tag">140+ showrooms</span>
+          <span class="tag">Registered trademark</span><span class="tag">Category creator</span>
+        </div>
+        <div class="pros-cons">
+          <div class="y">✓ Strongest brand equity in the Indian designer fan segment</div>
+          <div class="y">✓ Enquiry-only model — exactly what Volaris should follow</div>
+          <div class="y">✓ Fandeliers® — a whole category they own completely</div>
+          <div class="n">✗ Overwhelming number of sub-categories creates confusion</div>
+          <div class="n">✗ No fan selector, no compare tool, no spec education</div>
+          <div class="n">✗ Inconsistent product data across pages</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout wine" style="margin-top:22px;">
+    <h4>The Core Insight for Volaris</h4>
+    <p>Fanzart — the market leader with no e-commerce at all — proves that a designer fan brand's website exists to <strong>build desire and direct footfall to showrooms</strong>, not to process transactions. Anemos has the best page structure but zero identity. Luft has personality but no depth. Volaris's opening is to bring all three strengths together: Fanzart's brand confidence, Anemos's information depth, and a visual system that outclasses all of them.</p>
+  </div>
+
+  <div class="subsec">Competitor Feature Matrix</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>Luft</th><th>Anemos</th><th>Fanzart</th><th class="accent-col">Volaris — Proposed</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>E-Commerce / Cart</strong></td><td><span class="yes">✓</span> Shopify</td><td><span class="yes">✓</span> Shopify</td><td><span class="no">✗</span> Enquiry only</td><td><span class="no">✗</span> Designer brand — no cart</td></tr>
+        <tr><td><strong>Catalogue Download</strong></td><td><span class="part">~</span> Buried PDF link</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="yes">✓</span> Primary CTA on every page</td></tr>
+        <tr><td><strong>Dealer / Store Locator</strong></td><td><span class="no">✗</span></td><td><span class="yes">✓</span> Dedicated page</td><td><span class="yes">✓</span> 140+ listed</td><td><span class="yes">✓</span> Interactive map + enquiry</td></tr>
+        <tr><td><strong>Technical Specs</strong></td><td><span class="no">✗</span> None shown</td><td><span class="part">~</span> Partial</td><td><span class="part">~</span> Partial</td><td><span class="yes">✓</span> Full spec grid per product</td></tr>
+        <tr><td><strong>Unique Brand Metric</strong></td><td><span class="yes">✓</span> AIRFEEL™</td><td><span class="no">✗</span></td><td><span class="yes">✓</span> Fandeliers®</td><td><span class="yes">✓</span> CMM Airflow Bar</td></tr>
+        <tr><td><strong>Collection Filters</strong></td><td><span class="no">✗</span> Sort only</td><td><span class="no">✗</span></td><td><span class="part">~</span> Basic</td><td><span class="yes">✓</span> Size · Motor · LED · Material · Mount</td></tr>
+        <tr><td><strong>Blog / Ideas</strong></td><td><span class="no">✗</span></td><td><span class="yes">✓</span> Active</td><td><span class="part">~</span> Minimal</td><td><span class="yes">✓</span> Brand ideas & guides</td></tr>
+        <tr><td><strong>About / Brand Story</strong></td><td><span class="part">~</span> Basic</td><td><span class="yes">✓</span> Page</td><td><span class="yes">✓</span> Strong</td><td><span class="yes">✓</span> House of Ledlum narrative</td></tr>
+        <tr><td><strong>Enquiry / Contact</strong></td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td><span class="yes">✓</span> Primary</td><td><span class="yes">✓</span> Segmented by buyer type</td></tr>
+        <tr><td><strong>Fan Selector / Room Guide</strong></td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="yes">✓</span> Interactive room → fan size tool</td></tr>
+        <tr><td><strong>RPM vs CMM Education</strong></td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="yes">✓</span> Dedicated content page — SEO asset</td></tr>
+        <tr><td><strong>Warranty Information</strong></td><td><span class="no">✗</span></td><td><span class="part">~</span> Policy page</td><td><span class="part">~</span> Basic</td><td><span class="yes">✓</span> Detailed — Motor 5yr, LED 2yr, Blades 2yr</td></tr>
+        <tr><td><strong>Projects / Installations</strong></td><td><span class="no">✗</span></td><td><span class="yes">✓</span> Clients page</td><td><span class="yes">✓</span> Showrooms</td><td><span class="yes">✓</span> Portfolio of real spaces</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     §2  DESIGN INSPIRATION
+══════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-num">2</div>
+    <div>
+      <div class="sec-title">Design Inspiration</div>
+      <div class="sec-sub">What each reference site does exceptionally well — and the specific moves worth applying to Volaris</div>
+    </div>
+  </div>
+
+  <div class="g3">
+
+    <div class="insp-card">
+      <div class="insp-prev" style="background:linear-gradient(155deg,#080808,#141414);">
+        <div style="text-align:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:32px;color:#fff;font-weight:700;letter-spacing:-1px;">LAYER</div>
+          <div style="width:30px;height:1px;background:rgba(255,255,255,.2);margin:10px auto;"></div>
+          <div style="font-size:10px;color:rgba(255,255,255,.25);letter-spacing:3px;">LONDON DESIGN STUDIO</div>
+        </div>
+        <div class="site-badge">layerdesign.com</div>
+      </div>
+      <div class="insp-body">
+        <h4>Layer Design</h4>
+        <div class="url">Industrial product design · London · Bang & Olufsen, Nike, Ledger</div>
+        <p>Pure-black site with a single five-word headline. No decorative elements — project photography fills the screen and does all the work. Impact statistics (150+ collaborations, 200+ awards) are placed prominently as proof, not hidden. Nav has exactly six links.</p>
+        <p><strong style="color:var(--ink);">What Volaris borrows:</strong></p>
+        <ul class="steal">
+          <li>One short, powerful headline — let it breathe alone on the page</li>
+          <li>Lead with credibility numbers where appropriate</li>
+          <li>Full-bleed product photography carries more weight than any copy</li>
+          <li>Navigation stripped to only what is truly necessary</li>
+          <li>Deep negative space signals confidence, not emptiness</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="insp-card">
+      <div class="insp-prev" style="background:linear-gradient(135deg,#1a1209,#2a1c0c);">
+        <div style="text-align:center;padding:0 20px;">
+          <div style="font-family:'Playfair Display',serif;font-size:28px;color:#f5e6c8;font-weight:500;">JOSHUA's</div>
+          <div style="font-size:9px;color:rgba(245,230,200,.28);letter-spacing:3px;margin-top:5px;">LIFESTYLE MAGAZINE</div>
+          <div style="font-family:'Crimson Pro',serif;font-size:14px;font-style:italic;color:rgba(245,230,200,.4);margin-top:10px;">"How pleasant to see a new day dawning."</div>
+        </div>
+        <div class="site-badge">joshuas.io</div>
+      </div>
+      <div class="insp-body">
+        <h4>Joshua's Magazine</h4>
+        <div class="url">Luxury lifestyle magazine · Automotive, design, style, food</div>
+        <p>Opens with a quoted philosophy — unexpected, memorable. Warm brown-black tones, never cold. The homepage scrolls like a magazine spread rather than navigating like a website. Large editorial image tiles anchor each feature. Newsletter sits quietly at the bottom — no pop-ups.</p>
+        <p><strong style="color:var(--ink);">What Volaris borrows:</strong></p>
+        <ul class="steal">
+          <li>Open with a brand philosophy statement, not a product grid</li>
+          <li>Warm brown-blacks feel inviting — cold greys feel clinical</li>
+          <li>The page should reward slow scrolling, like reading a magazine</li>
+          <li>Large image tiles with minimal text overlay — image does the work</li>
+          <li>Email capture is quiet and respectful — never a pop-up</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="insp-card">
+      <div class="insp-prev" style="background:linear-gradient(155deg,#f7f4ef,#ede8e0);">
+        <div style="text-align:center;padding:0 20px;">
+          <div style="font-family:'Playfair Display',serif;font-size:26px;color:#2d2825;font-weight:500;">Studio DADO</div>
+          <div style="font-size:9px;color:rgba(45,40,37,.28);letter-spacing:3px;margin-top:5px;">HOSPITALITY DESIGN</div>
+          <div style="font-family:'Crimson Pro',serif;font-size:15px;font-style:italic;color:rgba(45,40,37,.45);margin-top:10px;">"Form Follows Feeling"</div>
+        </div>
+        <div class="site-badge" style="color:rgba(0,0,0,.3);">studiodado.com</div>
+      </div>
+      <div class="insp-body">
+        <h4>Studio Dado</h4>
+        <div class="url">Interior design for hospitality · Miami · "Form Follows Feeling"</div>
+        <p>Warm cream background — the opposite of cold tech white. Opens with a philosophy headline before showing a single project. Autoplay looping video in the hero, muted. Project cards show the space in full-bleed photography with only a name and category. Footer carries just an address, email, and phone — nothing more.</p>
+        <p><strong style="color:var(--ink);">What Volaris borrows:</strong></p>
+        <ul class="steal">
+          <li>Warm cream/ivory backgrounds — premium without being aggressive</li>
+          <li>Lead with brand philosophy before revealing any product</li>
+          <li>Autoplay looping video creates atmosphere without demanding attention</li>
+          <li>Project cards: full image, minimal text — the room sells itself</li>
+          <li>Minimal footer with physical address builds real-world trust</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout wine" style="margin-top:22px;">
+    <h4>Volaris Aesthetic Direction — The Synthesis</h4>
+    <p>Layer's discipline tells us: pick one headline, make it count, let silence do the rest. Joshua's warmth tells us: use brown-blacks, not cold greys — warmth invites while cool distances. Studio Dado's philosophy-first approach tells us: before showing a single fan, tell the visitor how the room should feel. Together, these three form a clear brief: a luxury Indian fan brand whose website reads like a design atelier, not an appliance catalogue.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     §3  WHAT VOLARIS DOES DIFFERENTLY
+══════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-num">3</div>
+    <div>
+      <div class="sec-title">What Volaris Does Differently</div>
+      <div class="sec-sub">Four strategic advantages that separate Volaris from every competitor in the Indian market</div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <p style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;">The Catalogue as Primary CTA</p>
+      <p style="font-family:var(--ff-text);font-size:16px;color:var(--ink);line-height:1.8;">While competitors end pages with "Add to Cart" or "Enquire Now," every Volaris page ends with <strong>"Download Catalogue."</strong> A beautifully produced PDF is a leave-behind that lives on desks, gets shown to interior designers, and resurfaces weeks later when the buyer is ready. It is a sales tool that keeps working long after the session ends.</p>
+    </div>
+    <div class="card">
+      <p style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;">CMM as the Brand Metric</p>
+      <p style="font-family:var(--ff-text);font-size:16px;color:var(--ink);line-height:1.8;">Luft built AIRFEEL™ as their ownable metric. Volaris has something better already in the catalogue: <strong>CMM — cubic metres per minute</strong> (and its CFM equivalent). Every product page in the catalogue lists both values — Luna at 364 m³/min (13,000 CFM), Clove at 275 m³/min (9,821 CFM), Trident at 210 m³/min (7,500 CFM). Displayed as a visual airflow bar on the website, this turns a dry engineering number into a powerful story about how much air actually moves through a room. The catalogue also teaches visitors why RPM alone is misleading — a lesson Volaris owns online.</p>
+    </div>
+    <div class="card">
+      <p style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;">The House of Ledlum Story</p>
+      <p style="font-family:var(--ff-text);font-size:16px;color:var(--ink);line-height:1.8;">Fanzart is a product brand. Anemos is a multi-brand store. Volaris carries the backing of <strong>the House of Ledlum</strong> — Ledlum Lighting Solutions LLP, founded 2017, with sister brands Aerglo (decorative lighting), Artizan (architectural projects since 2020), and Astara (commercial LED). This is a lineage story none of the competitors can replicate. It elevates Volaris from a product to a design house, the way an Italian furniture brand references the family behind the craft.</p>
+    </div>
+    <div class="card">
+      <p style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;">Editorial Over Commercial</p>
+      <p style="font-family:var(--ff-text);font-size:16px;color:var(--ink);line-height:1.8;">All three competitors either look like Shopify stores or generic product catalogues. Volaris will present itself as <strong>an interior design publication</strong>. Room photography leads. Specifications follow. Prices never appear. The website creates desire — the dealer closes the sale.</p>
+    </div>
+    <div class="card">
+      <p style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;">The Fan Selector — Room-Size Intelligence</p>
+      <p style="font-family:var(--ff-text);font-size:16px;color:var(--ink);line-height:1.8;">The catalogue already contains a "How to Find the Perfect Fan?" guide — room diagrams with size recommendations. Volaris brings this to life as an <strong>interactive fan selector</strong>: choose your room type, get the right fan size. No competitor offers this level of guided education. The selector also teaches the critical difference between <strong>RPM and CMM/CFM</strong> — a concept Volaris owns online.</p>
+    </div>
+    <div class="card">
+      <p style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;">Multi-Size Design Families</p>
+      <p style="font-family:var(--ff-text);font-size:16px;color:var(--ink);line-height:1.8;">Many Volaris designs come in <strong>multiple sizes with unique model codes</strong> — Venus alone spans 24"/36"/42"/52" across four SKUs (VFR003–006), each with different CMM and wattage ratings. The product page must handle size variants elegantly: one design, multiple sizes, distinct airflow data per size. This is more sophisticated than any competitor's product architecture.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     §4  SITE MAP
+══════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-num gold">4</div>
+    <div>
+      <div class="sec-title">Recommended Site Map</div>
+      <div class="sec-sub">5 must-have pages — lean, purposeful, every page earns its place</div>
+    </div>
+  </div>
+
+  <div class="callout gold">
+    <h4>Fewer Pages, Deeper Presence</h4>
+    <p>Fanzart lists 12 navigation items and visitors get lost. Volaris has 5 — and every click leads somewhere with real purpose. A designer brand website doesn't need FAQ pages and policy disclaimers in the nav. It needs a beautiful home, a complete collection (90+ designs across 7 categories, sourced from the 2025 catalogue), a reason to believe in the brand, a way to find a dealer, and a way to get in touch.</p>
+  </div>
+
+  <div class="sitemap-box" style="margin-top:22px;">
+    <div class="sm-root">VOLARIS.IN</div>
+    <div class="sm-cols">
+
+      <div>
+        <div class="sm-page g">Home</div>
+        <div class="sm-item">Video / photo hero</div>
+        <div class="sm-item">Brand philosophy</div>
+        <div class="sm-item">Shop by Category tiles</div>
+        <div class="sm-item">Featured Designs</div>
+        <div class="sm-item">CMM education block</div>
+        <div class="sm-item">Room inspiration</div>
+        <div class="sm-item">Download Catalogue CTA</div>
+        <div class="sm-item">Find a Dealer strip</div>
+      </div>
+
+      <div>
+        <div class="sm-page">Collections</div>
+        <div class="sm-item">All Designs (90+)</div>
+        <div class="sm-item">Ceiling Fans</div>
+        <div class="sm-item">↳ Downrod (41)</div>
+        <div class="sm-item">↳ Hugger (8)</div>
+        <div class="sm-item">↳ Decorative (10)</div>
+        <div class="sm-item">Tower Fans (5)</div>
+        <div class="sm-item">Bladeless Fans (3)</div>
+        <div class="sm-item">Pedestal & Stand</div>
+        <div class="sm-item">↳ 6 series · 17 models</div>
+        <div class="sm-item">Exhaust Fans (6)</div>
+        <div class="sm-item">Each → product detail</div>
+      </div>
+
+      <div>
+        <div class="sm-page">About</div>
+        <div class="sm-item">Volaris brand story</div>
+        <div class="sm-item">House of Ledlum</div>
+        <div class="sm-item">↳ Aerglo · Artizan · Astara</div>
+        <div class="sm-item">Our values & mission</div>
+        <div class="sm-item">Warranty (Motor 5yr, LED 2yr)</div>
+        <div class="sm-item">Fan Selector / Room Guide</div>
+        <div class="sm-item">RPM vs CMM education</div>
+        <div class="sm-item">Project installations</div>
+        <div class="sm-item">Catalogue download</div>
+      </div>
+
+      <div>
+        <div class="sm-page">Dealer Locator</div>
+        <div class="sm-item">Interactive map</div>
+        <div class="sm-item">Search by city / pin</div>
+        <div class="sm-item">Dealer cards</div>
+        <div class="sm-item">Request a demo</div>
+        <div class="sm-item">Become a dealer</div>
+      </div>
+
+      <div>
+        <div class="sm-page">Contact</div>
+        <div class="sm-item">Homeowner enquiry</div>
+        <div class="sm-item">Architect / ID enquiry</div>
+        <div class="sm-item">Bulk / project enquiry</div>
+        <div class="sm-item">Media enquiry</div>
+        <div class="sm-item">Office address</div>
+        <div class="sm-item">Social links</div>
+      </div>
+
+    </div>
+    <p style="font-size:11px;color:var(--stone);margin-top:16px;">Footer: Privacy Policy · Warranty Terms · Safety & Troubleshooting · Catalogue PDF · Instagram · YouTube</p>
+    <div style="margin-top:14px;padding:14px 18px;background:var(--parchment);border-radius:var(--r);border:1px solid var(--border);">
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;font-weight:600;">Pedestal & Stand — 6 Series from Catalogue</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:12px;color:var(--umber);">
+        <div><strong>Artemis</strong> — Pedestal, Tripod</div>
+        <div><strong>Lance</strong> — Pedestal, Tripod, Wall</div>
+        <div><strong>Mercury</strong> — Pedestal, Tripod, Table</div>
+        <div><strong>Pluto</strong> — Tripod</div>
+        <div><strong>Bass</strong> — Pedestal, Tripod, Floor</div>
+        <div><strong>Mace</strong> — Pedestal, Tripod, Table, Floor, Wall</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     §5  PAGE WIREFRAMES
+══════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-num">5</div>
+    <div>
+      <div class="sec-title">Page Wireframes</div>
+      <div class="sec-sub">Visual layout blueprints with every section, component, and design decision annotated</div>
+    </div>
+  </div>
+
+  <!-- HOMEPAGE -->
+  <div class="subsec">5.1 — Homepage</div>
+  <div class="browser">
+    <div class="brow-bar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="url-bar">volaris.in</div>
+    </div>
+    <!-- NAV -->
+    <div class="nav-m">
+      <div class="nav-m-logo">VOLARIS</div>
+      <span class="nav-m-link">Collections</span>
+      <span class="nav-m-link">About</span>
+      <span class="nav-m-link">Find a Dealer</span>
+      <span class="nav-m-link">Contact</span>
+      <div style="flex:1;"></div>
+      <div class="nav-m-cta">Download Catalogue</div>
+    </div>
+    <div class="lbg">
+
+      <!-- HERO -->
+      <div class="lb lb-hero">
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;">
+          <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.28);text-transform:uppercase;">House of Ledlum · Designer Fans</div>
+          <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#fff;line-height:1.1;text-align:center;">Every room has a story.<br/><span style="color:#f0c0a0;font-style:italic;">We design the air inside it.</span></div>
+          <div style="font-family:'Crimson Pro',serif;font-size:15px;font-style:italic;color:rgba(255,255,255,.38);max-width:360px;text-align:center;line-height:1.7;">90+ designs. 5-year motor warranty. Precision engineering that belongs in architecture, not appliance stores.</div>
+          <div style="display:flex;gap:10px;margin-top:6px;">
+            <div style="background:var(--gold);color:var(--wine);padding:10px 24px;border-radius:5px;font-size:12px;font-weight:700;">Download Catalogue</div>
+            <div style="border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.65);padding:10px 20px;border-radius:5px;font-size:12px;">View Collection →</div>
+          </div>
+          <div style="position:absolute;bottom:12px;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.18);text-transform:uppercase;">Scroll</div>
+        </div>
+      </div>
+
+      <!-- TICKER -->
+      <div class="lb lb-ticker">✦ &nbsp;Downrod Fans &nbsp;·&nbsp; ✦ &nbsp;Hugger Series &nbsp;·&nbsp; ✦ &nbsp;Decorative Fans &nbsp;·&nbsp; ✦ &nbsp;Tower & Bladeless &nbsp;·&nbsp; ✦ &nbsp;Pedestal & Stand &nbsp;·&nbsp; ✦ &nbsp;House of Ledlum</div>
+
+      <!-- PHILOSOPHY BLOCK (Studio Dado inspired) -->
+      <div class="lb-intro">
+        <div style="max-width:540px;margin:0 auto;">
+          <div style="font-size:10px;letter-spacing:2.5px;color:var(--stone);text-transform:uppercase;margin-bottom:10px;">Our Philosophy</div>
+          <div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:500;color:var(--ink);line-height:1.25;margin-bottom:12px;">Airflow begins with design.<br/><span style="font-style:italic;color:var(--stone);">Design begins with intention.</span></div>
+          <div style="font-family:'Crimson Pro',serif;font-size:16px;color:var(--umber);line-height:1.8;">A Volaris fan starts as a question about a room — how should this space feel when the air moves through it? The engineering that follows is the answer. DC motors, hand-balanced blades, and a design language built for homes that take beauty seriously.</div>
+        </div>
+      </div>
+
+      <!-- SHOP BY CATEGORY -->
+      <div style="background:var(--parchment);padding:22px 18px;">
+        <div style="text-align:center;margin-bottom:14px;">
+          <div style="font-size:10px;letter-spacing:2.5px;color:var(--stone);text-transform:uppercase;margin-bottom:5px;">Collections</div>
+          <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);">Shop by Category</div>
+        </div>
+        <div class="lb-catgrid">
+          <div><div style="font-size:22px;">🪟</div><strong>Ceiling Fans</strong><div style="font-size:9px;color:var(--stone);font-weight:400;">Downrod · Hugger · Decorative</div></div>
+          <div><div style="font-size:22px;">🌀</div><strong>Tower & Bladeless</strong><div style="font-size:9px;color:var(--stone);font-weight:400;">Gale · Aura · Exhalia · Portal</div></div>
+          <div><div style="font-size:22px;">🏠</div><strong>Pedestal & Stand</strong><div style="font-size:9px;color:var(--stone);font-weight:400;">Artemis · Lance · Mercury · Bass · Mace</div></div>
+        </div>
+      </div>
+
+      <!-- FEATURED DESIGNS -->
+      <div style="background:#fff;padding:22px 18px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px;">
+          <div>
+            <div style="font-size:10px;letter-spacing:2.5px;color:var(--stone);text-transform:uppercase;margin-bottom:3px;">Featured</div>
+            <div style="font-family:'Playfair Display',serif;font-size:20px;color:var(--ink);">This Season's Designs</div>
+          </div>
+          <div style="font-size:12px;color:var(--crimson);font-weight:600;">View All 90+ →</div>
+        </div>
+        <div class="lb-feat">
+          <div><div>🌀</div><strong>Luna</strong> · 60" DC</div>
+          <div><div>🌀</div><strong>Solace</strong> · 42" DC</div>
+          <div><div>🌀</div><strong>Atlas</strong> · 52" DC</div>
+          <div><div>🌀</div><strong>Bermuda</strong> · 52" DC</div>
+        </div>
+      </div>
+
+      <!-- BRAND STORY -->
+      <div class="lb lb-brand">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:24px;">
+          <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.25);text-transform:uppercase;">House of Ledlum</div>
+          <div style="font-family:'Playfair Display',serif;font-size:24px;color:#fff;text-align:center;line-height:1.2;">More than a fan brand.<br/><span style="font-style:italic;color:rgba(255,255,255,.5);">A design legacy.</span></div>
+          <div style="font-size:12px;color:rgba(255,255,255,.35);max-width:400px;text-align:center;line-height:1.7;">Full-bleed room photography — fans installed in thoughtfully designed homes. The brand story told through spaces, not specifications.</div>
+          <div style="border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55);padding:7px 18px;border-radius:4px;font-size:11px;margin-top:4px;">Read Our Story →</div>
+        </div>
+      </div>
+
+      <!-- FAN SELECTOR / ROOM GUIDE -->
+      <div style="background:#fff;padding:26px 18px;">
+        <div style="text-align:center;margin-bottom:16px;">
+          <div style="font-size:10px;letter-spacing:2.5px;color:var(--stone);text-transform:uppercase;margin-bottom:5px;">Find Your Perfect Fan</div>
+          <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);">Which fan fits your room?</div>
+          <div style="font-family:'Crimson Pro',serif;font-size:14px;color:var(--stone);font-style:italic;margin-top:4px;">Select your room size and we'll recommend the right design</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+          <div style="background:var(--parchment);border-radius:6px;padding:14px 10px;text-align:center;border:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:700;color:var(--ink);">Living Room</div>
+            <div style="font-size:10px;color:var(--stone);margin-top:3px;">400+ sqft · 60"</div>
+          </div>
+          <div style="background:var(--parchment);border-radius:6px;padding:14px 10px;text-align:center;border:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:700;color:var(--ink);">Bedroom</div>
+            <div style="font-size:10px;color:var(--stone);margin-top:3px;">200+ sqft · 52"</div>
+          </div>
+          <div style="background:var(--parchment);border-radius:6px;padding:14px 10px;text-align:center;border:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:700;color:var(--ink);">Kitchen</div>
+            <div style="font-size:10px;color:var(--stone);margin-top:3px;">100+ sqft · 36"</div>
+          </div>
+          <div style="background:var(--parchment);border-radius:6px;padding:14px 10px;text-align:center;border:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:700;color:var(--ink);">Study</div>
+            <div style="font-size:10px;color:var(--stone);margin-top:3px;">150+ sqft · 48"</div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:12px;">
+          <div style="display:inline-block;border:1px solid var(--crimson);color:var(--crimson);padding:8px 22px;border-radius:5px;font-size:12px;font-weight:600;">Open Fan Selector →</div>
+        </div>
+      </div>
+
+      <!-- CATALOGUE CTA -->
+      <div class="lb lb-ctastrip">
+        <div style="font-family:'Playfair Display',serif;font-size:20px;color:var(--ink);">The complete 2025 collection. Yours to keep.</div>
+        <div style="font-size:12px;color:var(--stone);">90+ designs · full specifications · all colour variants · free download</div>
+        <div style="background:var(--crimson);color:#fff;padding:10px 28px;border-radius:5px;font-size:12px;font-weight:700;">Download Catalogue — Free</div>
+      </div>
+
+      <div class="lb lb-footer">Footer &nbsp;·&nbsp; Collections &nbsp;·&nbsp; About &nbsp;·&nbsp; Dealer Locator &nbsp;·&nbsp; Contact &nbsp;·&nbsp; Privacy &nbsp;·&nbsp; Instagram &nbsp;·&nbsp; YouTube</div>
+    </div>
+  </div>
+
+  <div class="callout red">
+    <h4>📌 Homepage Section Notes</h4>
+    <ul>
+      <li><strong>Hero:</strong> Full-screen atmospheric video or photography. Crimson-to-wine gradient as the dark base. Two CTAs: "Download Catalogue" (gold, primary) + "View Collection" (ghost outline)</li>
+      <li><strong>Ticker strip:</strong> Slow-scrolling category names. Crimson background. A subtle luxury signal borrowed from fashion brands</li>
+      <li><strong>Philosophy block:</strong> White background, centred, serif type. Philosophy before products — this is the Studio Dado principle</li>
+      <li><strong>Category tiles:</strong> Parchment background with lifestyle room photography as the tile background (not flat icons)</li>
+      <li><strong>Featured Designs:</strong> 4-product editorial grid, horizontal scroll on mobile</li>
+      <li><strong>Brand Story:</strong> Dark crimson-to-wine section. Full-bleed lifestyle photography. House of Ledlum narrative</li>
+      <li><strong>Fan Selector:</strong> Interactive room-size guide from the catalogue. Living Room → 60", Bedroom → 52", Kitchen → 36", Study → 48". Material guidance: ABS/Plywood for high speed, Timber/Wood for cooler climates or AC rooms</li>
+      <li><strong>Catalogue CTA strip:</strong> Parchment background. The final, warm invitation before the footer</li>
+    </ul>
+  </div>
+
+  <!-- COLLECTIONS PAGE -->
+  <div class="subsec">5.2 — Collections / Product Listing Page</div>
+  <div class="browser">
+    <div class="brow-bar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="url-bar">volaris.in/collections/ceiling-fans</div>
+    </div>
+    <div class="nav-m">
+      <div class="nav-m-logo">VOLARIS</div>
+      <span class="nav-m-link" style="color:rgba(255,255,255,.9);">Collections</span>
+      <span class="nav-m-link">About</span>
+      <span class="nav-m-link">Find a Dealer</span>
+      <span class="nav-m-link">Contact</span>
+      <div style="flex:1;"></div>
+      <div class="nav-m-cta">Download Catalogue</div>
+    </div>
+    <!-- Category header -->
+    <div style="background:linear-gradient(155deg,var(--crimson-deep),var(--wine));padding:24px 28px;">
+      <div style="font-size:10px;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">Collections</div>
+      <div style="font-family:'Playfair Display',serif;font-size:28px;color:#fff;font-weight:600;">Ceiling Fans</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.4);margin-top:4px;">59 designs · Downrod · Hugger · Decorative</div>
+      <div style="display:flex;gap:0;margin-top:18px;border-top:1px solid rgba(255,255,255,.1);padding-top:14px;">
+        <div style="padding:6px 16px;background:var(--gold);color:var(--wine);border-radius:4px;font-size:11px;font-weight:700;margin-right:6px;">All (59)</div>
+        <div style="padding:6px 16px;font-size:11px;color:rgba(255,255,255,.45);">Downrod (41)</div>
+        <div style="padding:6px 16px;font-size:11px;color:rgba(255,255,255,.45);">Hugger (8)</div>
+        <div style="padding:6px 16px;font-size:11px;color:rgba(255,255,255,.45);">Decorative (10)</div>
+      </div>
+    </div>
+    <!-- Listing body -->
+    <div style="display:grid;grid-template-columns:200px 1fr;background:#fff;">
+      <!-- Filter col -->
+      <div style="padding:20px;border-right:1px solid var(--border);">
+        <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:14px;">Filters</div>
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:7px;">Fan Size</div>
+          <div style="font-size:11px;color:var(--stone);line-height:2.3;">☐ Up to 24"<br/>☐ 36–44"<br/>☐ 48–52"<br/>☐ 56–60"+</div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:7px;">Motor Type</div>
+          <div style="font-size:11px;color:var(--stone);line-height:2.3;">☐ DC Motor<br/>☐ AC Motor</div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:7px;">Features</div>
+          <div style="font-size:11px;color:var(--stone);line-height:2.3;">☐ LED Included<br/>☐ Remote Control</div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:7px;">Blade Material</div>
+          <div style="font-size:11px;color:var(--stone);line-height:2.3;">☐ ABS<br/>☐ Composite Board<br/>☐ Plywood<br/>☐ Polycarbonate<br/>☐ Solid Wood<br/>☐ Iron</div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:7px;">No. of Blades</div>
+          <div style="font-size:11px;color:var(--stone);line-height:2.3;">☐ 3 Blades<br/>☐ 4 Blades<br/>☐ 5 Blades<br/>☐ 6+ Blades</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:7px;">Mounting Style</div>
+          <div style="font-size:11px;color:var(--stone);line-height:2.3;">☐ Indian Clamp<br/>☐ European Clamp</div>
+        </div>
+      </div>
+      <!-- Product grid -->
+      <div style="padding:18px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <div style="font-size:12px;color:var(--stone);">Showing 1–12 of 59 designs</div>
+          <div style="font-size:11px;background:var(--parchment);border:1px solid var(--border);padding:5px 12px;border-radius:4px;color:var(--umber);">Sort: Featured ▾</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+          <div class="prod-card">
+            <div class="prod-img">🌀<div class="prod-badges"><span class="pb pb-dc">DC</span><span class="pb pb-led">LED</span></div></div>
+            <div class="prod-body">
+              <div class="prod-code">VFR014</div>
+              <div class="prod-name">Luna</div>
+              <div class="prod-spec">ABS · 60" · 8 blades</div>
+              <div class="prod-swatches">
+                <div class="sw" style="background:#2d1a0a;border-color:#2d1a0a;"></div>
+                <div class="sw" style="background:#aaa;"></div>
+                <div class="sw" style="background:#f0ece3;"></div>
+              </div>
+              <div class="prod-cta">View Design</div>
+            </div>
+          </div>
+          <div class="prod-card">
+            <div class="prod-img">🌀<div class="prod-badges"><span class="pb pb-dc">DC</span><span class="pb pb-led">LED</span><span class="pb pb-rem">Remote</span></div></div>
+            <div class="prod-body">
+              <div class="prod-code">VCF001</div>
+              <div class="prod-name">Solace</div>
+              <div class="prod-spec">ABS · 42" · 4 blades</div>
+              <div class="prod-swatches">
+                <div class="sw" style="background:#1a1a1a;border-color:#1a1a1a;"></div>
+                <div class="sw" style="background:#e8e4dd;"></div>
+              </div>
+              <div class="prod-cta">View Design</div>
+            </div>
+          </div>
+          <div class="prod-card">
+            <div class="prod-img">🌀<div class="prod-badges"><span class="pb pb-dc">DC</span><span class="pb pb-rem">Remote</span></div></div>
+            <div class="prod-body">
+              <div class="prod-code">VFR035</div>
+              <div class="prod-name">Bermuda</div>
+              <div class="prod-spec">ABS · 52" · 3 blades</div>
+              <div class="prod-swatches">
+                <div class="sw" style="background:#8b6914;border-color:#8b6914;"></div>
+                <div class="sw" style="background:#c0b9ae;"></div>
+              </div>
+              <div class="prod-cta">View Design</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout sage">
+    <h4>📌 Collections Page — Key Decisions</h4>
+    <ul>
+      <li><strong>"View Design" not "Add to Cart"</strong> — language signals this is a design brand, not a shop</li>
+      <li><strong>No prices anywhere</strong> on the website — enquire or visit a dealer for pricing (Fanzart model)</li>
+      <li><strong>Sub-type tabs in the header banner</strong> (All / Downrod / Hugger / Decorative) keeps navigation clean — category names match the official 2025 catalogue</li>
+      <li><strong>Colour swatches visible on every listing card</strong> — Luft does this well and it drives engagement</li>
+      <li><strong>Feature badges on image</strong> (DC · LED · Remote) allow instant scanning without reading specs</li>
+      <li><strong>Filter panel</strong> — Luft has zero filters for 75 products; Anemos has none at all. Volaris sets the standard with Size, Motor Type, Features, Blade Material (ABS/Composite Board/Plywood/Polycarbonate/Wood/Iron), Blade Count, and Mounting Style (Indian/European Clamp)</li>
+    </ul>
+  </div>
+
+  <!-- PRODUCT DETAIL -->
+  <div class="subsec">5.3 — Product Detail Page</div>
+  <div class="browser">
+    <div class="brow-bar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="url-bar">volaris.in/designs/luna</div>
+    </div>
+    <div class="nav-m">
+      <div class="nav-m-logo">VOLARIS</div>
+      <span class="nav-m-link">Collections</span>
+      <span class="nav-m-link">About</span>
+      <span class="nav-m-link">Find a Dealer</span>
+      <span class="nav-m-link">Contact</span>
+      <div style="flex:1;"></div>
+      <div class="nav-m-cta">Download Catalogue</div>
+    </div>
+    <div class="pdp-wrap">
+      <!-- Gallery -->
+      <div>
+        <div class="pdp-main-img">🌀
+          <div style="position:absolute;bottom:9px;right:9px;background:rgba(0,0,0,.4);color:rgba(255,255,255,.55);font-size:9px;padding:3px 7px;border-radius:3px;letter-spacing:1px;">360° VIEW</div>
+        </div>
+        <div class="pdp-thumbs">
+          <div></div><div></div><div></div>
+          <div style="display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--stone);">+5</div>
+        </div>
+        <div style="margin-top:9px;background:var(--linen);height:130px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;font-size:11px;color:var(--stone);">
+          <div style="font-size:18px;">🛋️</div>
+          <div>Room context photo</div>
+          <div style="font-size:10px;color:var(--dust);">"Luna installed in a large living room"</div>
+        </div>
+      </div>
+      <!-- Info -->
+      <div class="pdp-info">
+        <div class="pdp-crumb">Collections → Ceiling Fans → Downrod → Luna</div>
+        <div class="pdp-code">VFR014 · Downrod Ceiling Fan</div>
+        <div class="pdp-name">Luna</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+          <span class="pb pb-dc" style="font-size:10px;padding:4px 10px;">DC Motor</span>
+          <span class="pb pb-led" style="font-size:10px;padding:4px 10px;">LED 24W</span>
+          <span class="pb pb-rem" style="font-size:10px;padding:4px 10px;">Remote</span>
+        </div>
+        <!-- CMM BAR -->
+        <div class="cmm-bar-wrap">
+          <div class="cmm-bar-top"><span>Airflow (CMM)</span><span>364 m³/min</span></div>
+          <div class="cmm-bar"><div style="width:80%;"></div></div>
+          <div class="cmm-note">Recommended for rooms up to 25 ft × 20 ft · 13,000 CFM</div>
+        </div>
+        <!-- Spec grid -->
+        <div class="spec-grid">
+          <div class="spec-cell"><label>Fan Size</label><span>60 inch</span></div>
+          <div class="spec-cell"><label>Wattage</label><span>DC 55W + LED 24W</span></div>
+          <div class="spec-cell"><label>Blades</label><span>8 (ABS)</span></div>
+          <div class="spec-cell"><label>RPM</label><span>150</span></div>
+          <div class="spec-cell"><label>Mounting</label><span>Indian Clamp</span></div>
+          <div class="spec-cell"><label>Downrod</label><span>11" or 5"</span></div>
+        </div>
+        <!-- Colours -->
+        <div style="margin:10px 0;">
+          <div style="font-size:11px;font-weight:600;color:var(--ink);margin-bottom:6px;">Body Colour</div>
+          <div class="colour-row">
+            <div class="col-sw" style="background:#2d1a0a;border:2px solid var(--crimson);"></div>
+            <div class="col-sw" style="background:#999;border:1.5px solid var(--border);"></div>
+            <div class="col-sw" style="background:#f0ece3;border:1.5px solid var(--border);"></div>
+          </div>
+        </div>
+        <div style="margin:10px 0 0;">
+          <div style="font-size:11px;font-weight:600;color:var(--ink);margin-bottom:6px;">Blade Colour</div>
+          <div class="colour-row">
+            <div class="col-sw" style="background:#5c3e1a;border:1.5px solid var(--border);"></div>
+            <div class="col-sw" style="background:#f0ece3;border:1.5px solid var(--border);"></div>
+          </div>
+        </div>
+        <!-- CTAs — NO CART -->
+        <div class="pdp-cta-row">
+          <div class="cta-p">Enquire About This Design</div>
+          <div class="cta-s">Download Catalogue</div>
+        </div>
+        <div class="pdp-note">✓ 5-Year Motor Warranty &nbsp;·&nbsp; ✓ Find a Dealer Near You</div>
+        <!-- Tabs -->
+        <div class="pdp-tabs">
+          <div class="tab-row">
+            <div class="tab on">Specifications</div>
+            <div class="tab">Installation</div>
+            <div class="tab">Room Gallery</div>
+            <div class="tab">Warranty</div>
+          </div>
+          <div style="font-size:12px;color:var(--stone);">Full technical specification table — all 20 catalogue fields in a clean, readable format below this section...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout gold">
+    <h4>📌 Product Detail — Critical Design Decisions</h4>
+    <ul>
+      <li><strong>URL is /designs/luna</strong> — not /products/. The language signals a design studio, not a store</li>
+      <li><strong>No price shown anywhere</strong> — ever. Enquire or find a dealer. This protects dealer relationships and reinforces the brand tier</li>
+      <li><strong>CMM Airflow Bar</strong> — Volaris's branded performance metric. Turns a dry engineering figure into a visual story about air and space</li>
+      <li><strong>Primary CTA: "Enquire About This Design"</strong> — warm and considered language. Not transactional</li>
+      <li><strong>Secondary CTA: "Download Catalogue"</strong> — the leave-behind is always one click away</li>
+      <li><strong>Room context photo below gallery</strong> — the fan shown in a styled, real space (the catalogue already provides beautiful room photography for many models). This is what converts visitors</li>
+      <li><strong>Multi-size variant selector</strong> — many designs (Venus, Spade, Basil) come in 2–4 sizes. A size dropdown/tab switches the CMM, CFM, wattage, and model code dynamically — one design page, multiple SKU data</li>
+      <li><strong>Product badges from catalogue</strong> — "High Speed", "Most Popular", "Limited Edition" badges appear on specific products. Replicate these as visual labels on the website product cards and detail pages</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     §6  NAVIGATION & FOOTER
+══════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-num">6</div>
+    <div>
+      <div class="sec-title">Navigation & Footer</div>
+      <div class="sec-sub">Minimal nav with mega menu, and a footer that builds real-world trust</div>
+    </div>
+  </div>
+
+  <div class="subsec" style="margin-top:0;">6.1 — Mega Menu (Collections open)</div>
+  <div style="border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);">
+    <div class="nav-m">
+      <div class="nav-m-logo">VOLARIS</div>
+      <span class="nav-m-link" style="color:rgba(255,255,255,.9);background:rgba(255,255,255,.1);">Collections ▾</span>
+      <span class="nav-m-link">About</span>
+      <span class="nav-m-link">Find a Dealer</span>
+      <span class="nav-m-link">Contact</span>
+      <div style="flex:1;"></div>
+      <div class="nav-m-cta">Download Catalogue</div>
+    </div>
+    <div style="background:#fff;padding:26px 32px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:24px;border-top:2px solid var(--crimson);">
+      <div>
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;font-weight:600;">Ceiling Fans</div>
+        <ul style="list-style:none;font-size:13px;color:var(--umber);line-height:2.5;">
+          <li style="font-size:11px;color:var(--stone);">All Ceiling Fans (59)</li>
+          <li>Downrod Fans (41)</li>
+          <li>Hugger / Flush Mount (8)</li>
+          <li>Decorative Fans (10)</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;font-weight:600;">More Collections</div>
+        <ul style="list-style:none;font-size:13px;color:var(--umber);line-height:2.5;">
+          <li>Tower Fans (5)</li>
+          <li>Bladeless Fans (3)</li>
+          <li>Pedestal & Stand (6 series)</li>
+          <li>Exhaust Fans (6)</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;font-weight:600;">Quick Links</div>
+        <ul style="list-style:none;font-size:13px;color:var(--umber);line-height:2.5;">
+          <li>All 90+ Designs</li>
+          <li>Fan Selector Guide</li>
+          <li>About · House of Ledlum</li>
+          <li>Find a Dealer</li>
+        </ul>
+      </div>
+      <div style="background:var(--parchment);border-radius:var(--r);padding:16px;text-align:center;">
+        <div style="font-family:'Playfair Display',serif;font-size:15px;color:var(--ink);margin-bottom:6px;">2025 Collection</div>
+        <div style="font-size:11px;color:var(--stone);line-height:1.6;margin-bottom:12px;">90+ designs, full specifications, all colour variants. Free to download.</div>
+        <div style="background:var(--crimson);color:#fff;padding:8px 14px;border-radius:4px;font-size:11px;font-weight:700;">Download Now →</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsec">6.2 — Footer</div>
+  <div style="background:var(--wine);border-radius:var(--r-lg);padding:38px;">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px;margin-bottom:32px;">
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:26px;color:#fff;margin-bottom:8px;font-weight:700;">VOLARIS</div>
+        <div style="font-family:'Crimson Pro',serif;font-size:14px;font-style:italic;color:rgba(255,255,255,.3);margin-bottom:12px;">An integral part of the House of Ledlum</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.3);line-height:1.9;max-width:220px;">Designer fans for homes that take beauty seriously. DC motors. 5-year motor warranty. 90+ designs.</div>
+        <div style="margin-top:18px;display:flex;gap:9px;">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:13px;">📷</div>
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:13px;">▶</div>
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:13px;">📌</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:12px;font-weight:600;">Collections</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.4);line-height:2.6;">Ceiling Fans<br/>Decorative Fans<br/>Tower & Bladeless<br/>Pedestal & Stand<br/>Exhaust Fans</div>
+      </div>
+      <div>
+        <div style="font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:12px;font-weight:600;">About</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.4);line-height:2.6;">Our Story<br/>House of Ledlum<br/>Fan Selector Guide<br/>Warranty Terms<br/>Find a Dealer</div>
+      </div>
+      <div>
+        <div style="font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:12px;font-weight:600;">Catalogue</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.3);line-height:1.8;margin-bottom:12px;">Download the complete 2025 Volaris catalogue — 90+ designs, full specs, all colours.</div>
+        <div style="background:var(--gold);color:var(--wine);padding:9px 16px;border-radius:5px;font-size:12px;font-weight:700;text-align:center;">Download Free →</div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:20px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:11px;color:rgba(255,255,255,.2);">© 2025 Volaris — House of Ledlum. All rights reserved.</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.2);display:flex;gap:18px;"><span>Privacy Policy</span><span>Warranty Terms</span><span>Sitemap</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     §7  PRODUCT FIELD MAP
+══════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-num">7</div>
+    <div>
+      <div class="sec-title">Product Information Architecture</div>
+      <div class="sec-sub">All 20 catalogue fields mapped to their exact display location and visual format</div>
+    </div>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Field</th><th>Example (Luna)</th><th>Listing Card</th><th>Filter Panel</th><th>Detail Page</th><th>Display Format</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Model Code</strong></td><td>VFR014</td><td><span class="yes">✓</span></td><td>—</td><td><span class="yes">✓</span></td><td>Small uppercase label above product name</td></tr>
+        <tr><td><strong>Product Name</strong></td><td>Luna</td><td><span class="yes">✓</span></td><td>—</td><td><span class="yes">✓</span></td><td>Playfair Display — large serif heading</td></tr>
+        <tr><td><strong>Category</strong></td><td>Ceiling Fan</td><td>—</td><td><span class="yes">✓</span></td><td>Breadcrumb</td><td>Filter checkbox + breadcrumb trail</td></tr>
+        <tr><td><strong>Sub-type</strong></td><td>Downrod</td><td>—</td><td><span class="yes">✓</span></td><td>Tab + badge</td><td>Category tab on collection header</td></tr>
+        <tr><td><strong>Fan Material</strong></td><td>ABS</td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td>Spec line on card + filter + spec grid</td></tr>
+        <tr><td><strong>No. of Blades</strong></td><td>8</td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td>Spec line on card + filter checkbox</td></tr>
+        <tr><td><strong>Fan Size (inch)</strong></td><td>60"</td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td>Size range filter + spec grid cell</td></tr>
+        <tr><td><strong>Wattage</strong></td><td>DC 55W + LED 24W</td><td>—</td><td>—</td><td><span class="yes">✓</span></td><td>Spec grid cell on detail page</td></tr>
+        <tr><td><strong>Motor Type</strong></td><td>DC</td><td>Badge</td><td><span class="yes">✓</span></td><td>Badge</td><td>Crimson badge on card image</td></tr>
+        <tr><td><strong>RPM</strong></td><td>150</td><td>—</td><td>—</td><td><span class="yes">✓</span></td><td>Spec grid cell (specifications tab)</td></tr>
+        <tr><td><strong>CMM (m³/min)</strong></td><td>364 m³/min</td><td>—</td><td>—</td><td><span class="yes">✓</span></td><td><strong>Visual airflow bar — Volaris brand metric</strong></td></tr>
+        <tr><td><strong>CFM (ft³/min)</strong></td><td>13,000</td><td>—</td><td>—</td><td><span class="yes">✓</span></td><td>Supporting figure below CMM bar</td></tr>
+        <tr><td><strong>Downrod Size</strong></td><td>11" or 5"</td><td>—</td><td>—</td><td><span class="yes">✓</span></td><td>Dropdown selector on detail page</td></tr>
+        <tr><td><strong>Mounting Style</strong></td><td>Indian Clamp</td><td>—</td><td>—</td><td><span class="yes">✓</span></td><td>Spec grid cell</td></tr>
+        <tr><td><strong>Body Colours</strong></td><td>Darkwood, White, Grey</td><td>Swatches</td><td>—</td><td>Swatches</td><td>Circular swatches on card + selector on PDP</td></tr>
+        <tr><td><strong>Blade Colours</strong></td><td>Darkwood, White</td><td>—</td><td>—</td><td>Swatches</td><td>Separate swatch row on detail page</td></tr>
+        <tr><td><strong>LED Included</strong></td><td>Yes</td><td>Badge</td><td><span class="yes">✓</span></td><td>Badge</td><td>Gold badge on card image</td></tr>
+        <tr><td><strong>LED Wattage</strong></td><td>24W</td><td>—</td><td>—</td><td><span class="yes">✓</span></td><td>Inside LED badge on detail page</td></tr>
+        <tr><td><strong>Remote Included</strong></td><td>Yes</td><td>Badge</td><td><span class="yes">✓</span></td><td>Badge</td><td>Green badge on card image</td></tr>
+        <tr><td><strong>Special Notes</strong></td><td>WENLED IR Technology</td><td>—</td><td>—</td><td><span class="yes">✓</span></td><td>Highlighted callout box in specifications tab</td></tr>
+        <tr><td><strong>High Speed</strong></td><td>Yes (Clove, Spade)</td><td>Badge</td><td><span class="yes">✓</span></td><td>Badge</td><td>Red "HIGH SPEED" badge on card and detail hero</td></tr>
+        <tr><td><strong>Most Popular</strong></td><td>Yes (Clove, Luna, Spade)</td><td>Badge</td><td>—</td><td>Badge</td><td>Star badge — highlights bestsellers</td></tr>
+        <tr><td><strong>Limited Edition</strong></td><td>Yes (Venus, Basil)</td><td>Badge</td><td>—</td><td>Badge</td><td>Gold "LIMITED EDITION" badge on card</td></tr>
+        <tr><td><strong>Size Variants</strong></td><td>Venus: 24/36/42/52"</td><td>Size count</td><td>—</td><td>Selector</td><td>Dropdown or tabs: size → unique CMM/wattage</td></tr>
+        <tr><td><strong>Discontinuation Flag</strong></td><td>Wave — LED discontinued</td><td>Badge</td><td>—</td><td>Notice</td><td>Subtle "Discontinuing" notice for specific configs</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     §8  COLOUR + TYPOGRAPHY + BRAND VOICE
+══════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-num gold">8</div>
+    <div>
+      <div class="sec-title">Colour, Typography & Brand Voice</div>
+      <div class="sec-sub">A visual system derived from the Volaris logo — every colour has a reason</div>
+    </div>
+  </div>
+
+  <div class="subsec" style="margin-top:0;">8.1 — Colour Palette</div>
+  <div class="callout red" style="margin-bottom:18px;">
+    <h4>Palette Origin — The Volaris Logo</h4>
+    <p>The logo establishes three non-negotiable signals: a deep crimson-red as the dominant brand colour, warm ivory as the background it lives on, and a gold script accent that adds warmth. The full website palette flows from these three starting points — expanding them into a complete warm editorial system, while never straying from the brand's inherent feeling of crafted luxury.</p>
+  </div>
+  <div class="palette">
+    <div class="sw-card"><div class="sw-block" style="background:#8b1a1a;"></div><div class="sw-info"><strong>Crimson</strong><code>#8B1A1A</code><small>Primary brand red — logo</small></div></div>
+    <div class="sw-card"><div class="sw-block" style="background:#6b1212;"></div><div class="sw-info"><strong>Crimson Deep</strong><code>#6B1212</code><small>Navigation, hero bg</small></div></div>
+    <div class="sw-card"><div class="sw-block" style="background:#5a0f0f;"></div><div class="sw-info"><strong>Wine</strong><code>#5A0F0F</code><small>Footer, darkest sections</small></div></div>
+    <div class="sw-card"><div class="sw-block" style="background:#c49a28;"></div><div class="sw-info"><strong>Gold</strong><code>#C49A28</code><small>Primary CTA — logo script</small></div></div>
+    <div class="sw-card"><div class="sw-block" style="background:#faf6f0;"></div><div class="sw-info"><strong>Ivory</strong><code>#FAF6F0</code><small>Page background</small></div></div>
+    <div class="sw-card"><div class="sw-block" style="background:#f2ebe0;"></div><div class="sw-info"><strong>Parchment</strong><code>#F2EBE0</code><small>Section alternates</small></div></div>
+    <div class="sw-card"><div class="sw-block" style="background:#e8ddd0;"></div><div class="sw-info"><strong>Linen</strong><code>#E8DDD0</code><small>Card borders, dividers</small></div></div>
+    <div class="sw-card"><div class="sw-block" style="background:#8a6a6a;"></div><div class="sw-info"><strong>Stone</strong><code>#8A6A6A</code><small>Secondary text, labels</small></div></div>
+  </div>
+
+  <div class="subsec">8.2 — Typography</div>
+  <div class="card" style="margin-bottom:12px;">
+    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Display & Headings — Playfair Display</div>
+    <div style="font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:var(--ink);line-height:1.05;">Crafting Airflow.</div>
+    <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--ink);font-style:italic;font-weight:400;margin-top:4px;">Crafting Luxury.</div>
+    <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--stone);margin-top:6px;">Luna · Solace · Bermuda · Atlas · Gale · Artemis</div>
+    <div style="font-size:11px;color:var(--stone);margin-top:12px;">Hero headlines, product names, section titles, About page copy — all h1 through h3</div>
+  </div>
+  <div class="card" style="margin-bottom:12px;">
+    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Brand Narrative — Crimson Pro (Serif text)</div>
+    <div style="font-family:'Crimson Pro',serif;font-size:20px;font-style:italic;color:var(--umber);line-height:1.65;margin-bottom:6px;">"A Volaris fan starts as a question about a room — how should this space feel when the air moves through it?"</div>
+    <div style="font-family:'Crimson Pro',serif;font-size:17px;color:var(--umber);line-height:1.85;">The engineering that follows is the answer. DC motors, hand-balanced blades, and a design language built for homes that take beauty seriously.</div>
+    <div style="font-size:11px;color:var(--stone);margin-top:12px;">Philosophy sections, About page, brand narrative, intro paragraphs, pull-quotes</div>
+  </div>
+  <div class="card">
+    <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">UI & Navigation — Jost (Geometric Sans)</div>
+    <div style="font-family:'Jost',sans-serif;font-size:15px;color:var(--ink);margin-bottom:5px;">Collections · About · Find a Dealer · Contact · Download Catalogue</div>
+    <div style="font-family:'Jost',sans-serif;font-size:13px;color:var(--stone);">DC Motor · LED 24W · Remote Included · 60 inch · 8 blades · ABS material</div>
+    <div style="font-family:'Jost',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-top:6px;">VFR014 · DOWNROD CEILING FAN · 364 M³/MIN · 150 RPM</div>
+    <div style="font-size:11px;color:var(--stone);margin-top:12px;">Navigation links, buttons, product specs, filter labels, badges, all UI elements</div>
+  </div>
+
+  <div class="subsec">8.3 — Brand Voice</div>
+  <div class="g2">
+    <div class="card">
+      <p style="font-weight:700;font-size:13px;color:var(--ink);margin-bottom:12px;">✓ Say this</p>
+      <ul style="list-style:none;font-family:'Crimson Pro',serif;font-size:16px;color:var(--umber);line-height:2.6;">
+        <li>"View this design"</li>
+        <li>"Enquire about this design"</li>
+        <li>"Crafting Airflow. Crafting Luxury."</li>
+        <li>"Find a showroom near you"</li>
+        <li>"Download the catalogue"</li>
+        <li>"A design for every room"</li>
+        <li>"Find your perfect fan"</li>
+        <li>"House of Ledlum"</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p style="font-weight:700;font-size:13px;color:var(--crimson);margin-bottom:12px;">✗ Never say this</p>
+      <ul style="list-style:none;font-family:'Crimson Pro',serif;font-size:16px;color:var(--stone);line-height:2.6;">
+        <li>"Add to cart"</li>
+        <li>"Buy now"</li>
+        <li>"Check price"</li>
+        <li>"Order online"</li>
+        <li>"In stock"</li>
+        <li>"Sale — 20% off"</li>
+        <li>"Shipping in 3–5 days"</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     §9  MOBILE
+══════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-num">9</div>
+    <div>
+      <div class="sec-title">Mobile Strategy</div>
+      <div class="sec-sub">Over 60% of Indian web traffic arrives on mobile — every layout decision starts here</div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <p style="font-weight:700;font-size:13px;color:var(--ink);margin-bottom:10px;">📱 Navigation</p>
+      <ul style="padding-left:16px;font-size:13px;color:var(--umber);line-height:2.1;">
+        <li>Hamburger opens a full-screen crimson-to-wine overlay menu</li>
+        <li>Sticky bottom CTA bar: "Download Catalogue" always visible</li>
+        <li>Logo centred, clean — no clutter at top</li>
+        <li>No mega menu — flat list with expand arrows</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p style="font-weight:700;font-size:13px;color:var(--ink);margin-bottom:10px;">📱 Collections Page</p>
+      <ul style="padding-left:16px;font-size:13px;color:var(--umber);line-height:2.1;">
+        <li>Single-column cards on phones, 2-column on tablets</li>
+        <li>Filters open as a bottom sheet slide-up panel</li>
+        <li>Product images: 3:4 portrait ratio — not square</li>
+        <li>Sub-category tabs scroll horizontally</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p style="font-weight:700;font-size:13px;color:var(--ink);margin-bottom:10px;">📱 Product Detail</p>
+      <ul style="padding-left:16px;font-size:13px;color:var(--umber);line-height:2.1;">
+        <li>Full-width swipeable image gallery at top</li>
+        <li>CMM bar and key specs visible before scroll</li>
+        <li>Spec grid: 2×3 compact cells</li>
+        <li>Sticky bottom bar: "Enquire" + "Download Catalogue"</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p style="font-weight:700;font-size:13px;color:var(--ink);margin-bottom:10px;">⚡ Performance</p>
+      <ul style="padding-left:16px;font-size:13px;color:var(--umber);line-height:2.1;">
+        <li>All images: WebP format with lazy loading</li>
+        <li>Hero video: low-bitrate mobile version served separately</li>
+        <li>Page load target: under 2.5 seconds on 4G</li>
+        <li>Google Lighthouse mobile score target: 90+</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     §10  CATALOGUE-FIRST
+══════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-num gold">10</div>
+    <div>
+      <div class="sec-title">The Catalogue-First Philosophy</div>
+      <div class="sec-sub">Why Download Catalogue is the most powerful CTA a premium Indian fan brand can use</div>
+    </div>
+  </div>
+
+  <div class="callout wine">
+    <h4>A Sales Tool That Keeps Working</h4>
+    <p>When someone downloads the Volaris catalogue, it leaves the browser and enters their life. It sits on their desk. Their interior designer sees it. Their architect flips through it. It comes back up three weeks later when they're finally ready to commission the project. No checkout flow accomplishes this. A beautifully produced PDF catalogue, delivered instantly and for free, is a leave-behind that compounds over time — and none of your three competitors offer it as a meaningful CTA.</p>
+    <p style="margin-top:12px;">Luft has a small PDF link buried in their navigation. Anemos and Fanzart have nothing comparable. <strong>Volaris makes it the headline move on every single page.</strong></p>
+  </div>
+
+  <div class="g3" style="margin-top:20px;">
+    <div class="card">
+      <div style="font-size:24px;margin-bottom:8px;">📥</div>
+      <p style="font-weight:700;color:var(--ink);margin-bottom:8px;">Where It Appears</p>
+      <ul style="padding-left:16px;font-size:13px;color:var(--umber);line-height:2.2;">
+        <li>Primary CTA button in navigation (always visible)</li>
+        <li>Hero section — primary CTA</li>
+        <li>Mega menu — dedicated panel</li>
+        <li>Every product detail page (secondary CTA)</li>
+        <li>Homepage CTA strip above footer</li>
+        <li>Footer — dedicated column</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div style="font-size:24px;margin-bottom:8px;">📋</div>
+      <p style="font-weight:700;color:var(--ink);margin-bottom:8px;">The Download Form</p>
+      <ul style="padding-left:16px;font-size:13px;color:var(--umber);line-height:2.2;">
+        <li>Name + Email — two fields only</li>
+        <li>Optional: "I am a..." (Homeowner / Architect / Designer / Dealer)</li>
+        <li>Instant PDF delivery to inbox</li>
+        <li>Builds a warm-lead CRM list from day one</li>
+        <li>Follow-up email 7 days later from the Volaris team</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div style="font-size:24px;margin-bottom:8px;">📖</div>
+      <p style="font-weight:700;color:var(--ink);margin-bottom:8px;">What the Catalogue Contains</p>
+      <ul style="padding-left:16px;font-size:13px;color:var(--umber);line-height:2.2;">
+        <li>All 90+ designs with full lifestyle and product photography</li>
+        <li>Complete technical specifications for every product (material, size, wattage, RPM, CMM, CFM, mounting)</li>
+        <li>All body and blade colour variants shown per model</li>
+        <li>"Perfect Fan" room size guide with diagrams</li>
+        <li>RPM vs CFM/CMM education page</li>
+        <li>House of Ledlum brand story, values, and mission</li>
+        <li>Full warranty terms and safety/troubleshooting guide</li>
+        <li>Icon legend (DC Motor, Remote, LED badges)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     §11  HOUSE OF LEDLUM · WARRANTY · BRAND HERITAGE
+══════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-num gold">11</div>
+    <div>
+      <div class="sec-title">House of Ledlum, Warranty & Brand Heritage</div>
+      <div class="sec-sub">Brand pillars, sister companies, warranty structure, and safety content — all sourced from the official 2025 catalogue</div>
+    </div>
+  </div>
+
+  <div class="subsec" style="margin-top:0;">11.1 — The House of Ledlum</div>
+  <div class="callout wine">
+    <h4>A Family of Brands, Not a Single Product</h4>
+    <p>Volaris is an integral part of <strong>Ledlum Lighting Solutions LLP</strong>, founded in 2017 with a drive to provide energy-efficient and minimalistic lighting designs. The House of Ledlum is a design ecosystem — four sister brands, each with a distinct purpose. This family backing is a competitive moat that no other Indian fan brand can replicate.</p>
+  </div>
+
+  <div class="g2" style="margin-top:16px;">
+    <div class="card">
+      <p style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;">Sister Brands — Website "About" Content</p>
+      <ul style="padding-left:16px;font-family:var(--ff-text);font-size:15px;color:var(--umber);line-height:2.4;">
+        <li><strong>Ledlum Lighting Solutions LLP</strong> — Parent company. Energy-efficient lighting, founded 2017. Pioneers of innovative technology in indoor/outdoor lighting.</li>
+        <li><strong>Aerglo Lighting</strong> — Decorative lighting partner, co-founded by Pooja Malhotra & Monis Ahmed. Leading organized brand with streamlined creative SOPs.</li>
+        <li><strong>Artizan</strong> — Projects team since March 2020. Targets small-to-large developments for lighting consultants and architects, residential and commercial.</li>
+        <li><strong>Astara</strong> — LED lighting solutions focused on quality, ingenuity, and professional implementation. Innovation, quality, and competitiveness.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;">Brand Values — From the Catalogue</p>
+      <ul style="padding-left:16px;font-family:var(--ff-text);font-size:15px;color:var(--umber);line-height:2.4;">
+        <li><strong>Innovation Excellence</strong> — Advanced technology and design</li>
+        <li><strong>Quality Craftsmanship</strong> — Precision, durability, longevity</li>
+        <li><strong>Customer-Centric Focus</strong> — Deep understanding of needs</li>
+        <li><strong>Sustainability Leadership</strong> — Energy-efficient, eco-conscious</li>
+        <li><strong>Aesthetic Brilliance</strong> — Fans as statements of beauty</li>
+        <li><strong>Team Collaboration</strong> — Unity, diverse perspectives</li>
+        <li><strong>Integrity & Transparency</strong> — Trust with all stakeholders</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subsec">11.2 — Warranty Structure</div>
+  <div class="callout red">
+    <h4>Warranty Periods — Display on Every Product Page</h4>
+    <p>Volaris's warranty is a strong selling point, particularly the 5-year motor warranty on ceiling fans. This data should be visible prominently on the product detail page and on the About/Warranty section.</p>
+  </div>
+
+  <div class="tbl-wrap" style="margin-top:14px;">
+    <table>
+      <thead>
+        <tr><th>Product Type</th><th>Motor</th><th>LED</th><th>Blades</th><th>Remote</th><th class="accent-col">Website Display</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Ceiling & Hugger Fans</strong></td><td><span class="yes">5 years</span></td><td>2 years</td><td>2 years</td><td>6 months</td><td>Warranty badge on product card + detail page</td></tr>
+        <tr><td><strong>Tower / Bladeless / Pedestal / Exhaust</strong></td><td colspan="3" style="text-align:center;">Whole model: 2 years</td><td>6 months</td><td>Warranty badge — "2-Year Warranty"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="g2" style="margin-top:16px;">
+    <div class="card">
+      <p style="font-weight:700;font-size:13px;color:var(--crimson);margin-bottom:10px;">Warranty Exclusions — For Website Legal Page</p>
+      <ul style="padding-left:16px;font-size:13px;color:var(--umber);line-height:2.1;">
+        <li>Damage from lighting/power surges, incorrect installation, water damage</li>
+        <li>Used with automation dimmer or remote + regulator simultaneously</li>
+        <li>Not installed by a qualified electrician</li>
+        <li>Accidentally damaged, modified, or improperly serviced</li>
+        <li>Shipping costs for faulty fan replacement</li>
+        <li>Removal/reinstallation costs borne by client</li>
+        <li>Equipment rental costs (ladder, scaffolding, lift)</li>
+        <li>Wobbling or noise of fans</li>
+        <li>Remote replacement due to physical damage or mishandling</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p style="font-weight:700;font-size:13px;color:var(--ink);margin-bottom:10px;">Safety & Troubleshooting — Support Content</p>
+      <p style="font-size:12px;color:var(--stone);margin-bottom:10px;">From the catalogue — ready for the website's support section:</p>
+      <p style="font-weight:600;font-size:12px;color:var(--ink);margin-bottom:6px;">Safety Instructions</p>
+      <ul style="padding-left:16px;font-size:12px;color:var(--umber);line-height:2;">
+        <li>Turn off power before installation</li>
+        <li>Use only clamps, rods or hooks provided</li>
+        <li>Blade must be 2.3m+ from ground</li>
+        <li>Clean with damp or dry cloth only — no water or detergent</li>
+      </ul>
+      <p style="font-weight:600;font-size:12px;color:var(--ink);margin:10px 0 6px;">Troubleshooting — "Fan Won't Start"</p>
+      <ul style="padding-left:16px;font-size:12px;color:var(--umber);line-height:2;">
+        <li>Check remote is paired · Check circuit fuses · Check regulator disconnected</li>
+      </ul>
+      <p style="font-weight:600;font-size:12px;color:var(--ink);margin:10px 0 6px;">Troubleshooting — "Fan is Noisy"</p>
+      <ul style="padding-left:16px;font-size:12px;color:var(--umber);line-height:2;">
+        <li>Fasten motor screws · Tighten blade brackets · Allow 24hr break-in period</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subsec">11.3 — RPM vs CMM/CFM Education</div>
+  <div class="callout gold">
+    <h4>Airflow Education — A Key SEO and Brand Differentiator</h4>
+    <p>The catalogue dedicates a full page to explaining <strong>"RPM vs CFM"</strong> — a topic no competitor covers online. This becomes a dedicated page (or section) on the Volaris website, owning the search query "what is CMM in ceiling fans India." Key insights from the catalogue to feature:</p>
+    <ul style="margin-top:8px;">
+      <li><strong>Factors affecting airflow:</strong> Blade shape, material weight, fan size, ceiling height, and rod length</li>
+      <li><strong>Material matters:</strong> ABS, Plywood, and Polycarbonate produce more airflow than heavier Solid Wood — recommend timber fans for cooler cities or AC rooms</li>
+      <li><strong>RPM ≠ Airflow:</strong> "A slow RPM fan can still have high CFM" — RPM measures rotation speed, CMM/CFM measures actual air volume moved</li>
+      <li><strong>CMM is the metric that matters:</strong> Cubic metres per minute tells you how much air your room actually receives</li>
+      <li><strong>Ceiling height rule:</strong> Ceilings over 12ft require the correct rod size or airflow is reduced</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     §12  BUILD PRIORITY
+══════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-num">12</div>
+    <div>
+      <div class="sec-title">Build Priority Roadmap</div>
+      <div class="sec-sub">Phase 1, 2 and 3 — sequenced by maximum brand and business impact</div>
+    </div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Phase</th><th>Page / Feature</th><th>Why This First?</th><th>Effort</th><th>Beats Competitors?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="pr pr-1">Phase 1</span></td><td><strong>Homepage — cinematic hero</strong></td><td>First impression sets the entire brand tone immediately</td><td>Medium</td><td>All 3 have generic homepages — Volaris goes editorial</td></tr>
+        <tr><td><span class="pr pr-1">Phase 1</span></td><td><strong>Collections + Filter Panel</strong></td><td>Core browsing function. Filters alone beat Luft and Anemos instantly</td><td>Medium</td><td>Luft: sort only. Anemos: nothing. Clear win.</td></tr>
+        <tr><td><span class="pr pr-1">Phase 1</span></td><td><strong>Product Detail + CMM Bar</strong></td><td>Where desire converts to enquiry. CMM bar is Volaris's AIRFEEL™</td><td>Medium</td><td>Luft shows no specs. Volaris becomes the spec-proud brand.</td></tr>
+        <tr><td><span class="pr pr-1">Phase 1</span></td><td><strong>Catalogue Download (gated)</strong></td><td>Primary CTA. Builds a warm-lead list from day one</td><td>Low</td><td>Only Luft has PDF — buried. Volaris makes it central.</td></tr>
+        <tr><td><span class="pr pr-1">Phase 1</span></td><td><strong>Navigation + Footer</strong></td><td>The skeleton all other pages hang from</td><td>Low</td><td>Clean 5-link nav outclasses Fanzart's 12-item confusion</td></tr>
+        <tr><td><span class="pr pr-2">Phase 2</span></td><td><strong>About / Brand Story + House of Ledlum</strong></td><td>Ledlum legacy, 4 sister brands, 7 brand values, mission — unique asset</td><td>Low</td><td>Unique. Cannot be copied. Build it like Studio Dado's About.</td></tr>
+        <tr><td><span class="pr pr-2">Phase 2</span></td><td><strong>Dealer Locator — interactive map</strong></td><td>Essential for ₹15,000+ purchases — buyers want to see it in person</td><td>Medium</td><td>Anemos + Fanzart have it. Volaris needs it to compete.</td></tr>
+        <tr><td><span class="pr pr-2">Phase 2</span></td><td><strong>Fan Selector / Room Size Guide</strong></td><td>Catalogue's "Perfect Fan" guide as an interactive tool. High engagement.</td><td>Medium</td><td>Zero competitors have this. Instant differentiation.</td></tr>
+        <tr><td><span class="pr pr-2">Phase 2</span></td><td><strong>Contact — segmented enquiry</strong></td><td>Different enquiry types (homeowner / architect / B2B) improve lead quality</td><td>Low</td><td>All 3 have one generic contact page. Volaris does it better.</td></tr>
+        <tr><td><span class="pr pr-2">Phase 2</span></td><td><strong>Warranty & Support page</strong></td><td>Motor 5yr, LED 2yr, Blades 2yr. Safety tips + troubleshooting from catalogue.</td><td>Low</td><td>No competitor has a clear, branded warranty page.</td></tr>
+        <tr><td><span class="pr pr-3">Phase 3</span></td><td><strong>RPM vs CMM Education page</strong></td><td>Owns "what is CMM in ceiling fans India" — high-intent SEO query</td><td>Low</td><td>Zero competitors have spec education content</td></tr>
+        <tr><td><span class="pr pr-3">Phase 3</span></td><td><strong>Projects / Installations</strong></td><td>B2B credibility. Shows the brand in real, aspirational spaces</td><td>Medium</td><td>Anemos has a Clients page. Volaris makes it fully visual.</td></tr>
+        <tr><td><span class="pr pr-3">Phase 3</span></td><td><strong>Blog / Brand Ideas</strong></td><td>Long-term SEO and brand depth. Ideas + culture, not how-to tutorials</td><td>Ongoing</td><td>Anemos has an active blog. Volaris can match and outwrite it.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout wine" style="margin-top:22px;">
+    <h4>The Core Principle</h4>
+    <p>Volaris is not building a shop. It is building a world. Every pixel, every headline, every photograph should answer one question: does this make someone feel that owning a Volaris fan will make their home more beautiful? The catalogue is how that feeling travels home with them. The dealer is where that feeling becomes a purchase. The website's only job is to create the desire.</p>
+    <p style="margin-top:14px;font-family:'Crimson Pro',serif;font-size:18px;font-style:italic;color:rgba(255,255,255,.4);">"Crafting Airflow. Crafting Luxury."</p>
+  </div>
+
+</div>
+
+</div><!-- /doc -->
+
+<div class="doc-footer">
+  <strong>VOLARIS</strong> — Website Design Documentation v4 &nbsp;·&nbsp; House of Ledlum &nbsp;·&nbsp; March 2025 &nbsp;·&nbsp; Confidential<br/><br/>
+  Product data: Volaris Designer Fan Catalogue 2025 (Full) &nbsp;·&nbsp; 90+ models · 7 categories<br/>
+  Competitor research: luftfans.com &nbsp;·&nbsp; anemos.in &nbsp;·&nbsp; fanzartfans.com<br/>
+  Design inspiration: layerdesign.com &nbsp;·&nbsp; joshuas.io &nbsp;·&nbsp; studiodado.com
+</div>
+
+</body>
+</html>
