@@ -69,6 +69,7 @@ body {
   grid-template-columns: 1fr 1fr;
   position: relative;
   overflow: hidden;
+  z-index: 10;
 }
 
 /* Subtle texture overlay */
@@ -209,6 +210,8 @@ body {
   max-width: 1080px;
   margin: 0 auto;
   padding: 0 52px 100px;
+  position: relative;
+  z-index: 1;
 }
 
 /* ═══════════════════════════════════════════════
@@ -408,6 +411,8 @@ tr:nth-child(even) td { background: #fdfaf8; }
   overflow: hidden;
   box-shadow: 0 4px 24px rgba(90,15,15,.08);
   margin: 14px 0;
+  position: relative;
+  z-index: 1;
 }
 .brow-bar {
   background: #f0ebe5;
@@ -452,13 +457,15 @@ tr:nth-child(even) td { background: #fdfaf8; }
 /* ═══════════════════════════════════════════════
    WIREFRAME LAYOUT BLOCKS
 ═══════════════════════════════════════════════ */
-.lbg { background: var(--parchment); padding: 10px; display: flex; flex-direction: column; gap: 3px; }
+.lbg { background: var(--parchment); padding: 10px; display: flex; flex-direction: column; gap: 3px; overflow: hidden; }
 .lb { border-radius: 6px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 11px; font-weight: 500; }
 
 .lb-hero {
   background: linear-gradient(155deg, var(--wine) 0%, var(--crimson-deep) 100%);
   height: 256px; flex-direction: column; gap: 10px;
   color: rgba(255,255,255,.85);
+  position: relative;
+  overflow: hidden;
 }
 .lb-ticker {
   background: var(--crimson); color: rgba(255,255,255,.85);
@@ -624,6 +631,150 @@ tr:nth-child(even) td { background: #fdfaf8; }
 .pr-3 { background: var(--parchment); color: var(--umber); border: 1px solid var(--border); }
 
 /* ═══════════════════════════════════════════════
+   BENTO GRID — Category Showcase
+═══════════════════════════════════════════════ */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  gap: 14px;
+}
+.bento-tile {
+  border-radius: var(--r-lg);
+  padding: 28px 26px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 180px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.bento-tile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(90,15,15,.12);
+}
+.bento-tile.span-2 { grid-column: span 2; min-height: 220px; }
+.bento-tile.tall   { grid-row: span 2; }
+
+/* Tile themes */
+.bento-tile.dark {
+  background: linear-gradient(155deg, var(--wine) 0%, var(--crimson-deep) 100%);
+  color: #fff;
+}
+.bento-tile.dark .bt-count { color: var(--gold); }
+.bento-tile.dark .bt-models { color: rgba(255,255,255,.4); }
+.bento-tile.dark .bt-desc { color: rgba(255,255,255,.55); }
+
+.bento-tile.crimson {
+  background: linear-gradient(155deg, var(--crimson-deep), var(--crimson));
+  color: #fff;
+}
+.bento-tile.crimson .bt-count { color: #f0c0a0; }
+.bento-tile.crimson .bt-models { color: rgba(255,255,255,.45); }
+.bento-tile.crimson .bt-desc { color: rgba(255,255,255,.55); }
+
+.bento-tile.warm {
+  background: var(--parchment);
+  border: 1px solid var(--border);
+  color: var(--ink);
+}
+.bento-tile.warm .bt-count { color: var(--crimson); }
+.bento-tile.warm .bt-models { color: var(--stone); }
+.bento-tile.warm .bt-desc { color: var(--umber); }
+
+.bento-tile.gold-accent {
+  background: linear-gradient(155deg, #3a2a08, #5a3f10);
+  color: #fff;
+}
+.bento-tile.gold-accent .bt-count { color: var(--gold); }
+.bento-tile.gold-accent .bt-models { color: rgba(255,255,255,.4); }
+.bento-tile.gold-accent .bt-desc { color: rgba(255,255,255,.5); }
+
+.bento-tile.slate {
+  background: linear-gradient(155deg, #1a1a1a, #2a2a2a);
+  color: #fff;
+}
+.bento-tile.slate .bt-count { color: rgba(255,255,255,.6); }
+.bento-tile.slate .bt-models { color: rgba(255,255,255,.35); }
+.bento-tile.slate .bt-desc { color: rgba(255,255,255,.5); }
+
+.bento-tile.ivory {
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--ink);
+}
+.bento-tile.ivory .bt-count { color: var(--gold); }
+.bento-tile.ivory .bt-models { color: var(--stone); }
+.bento-tile.ivory .bt-desc { color: var(--umber); }
+
+/* Tile inner elements */
+.bt-eyebrow {
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  opacity: .4;
+  margin-bottom: 8px;
+}
+.bt-name {
+  font-family: var(--ff-display);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 4px;
+}
+.bento-tile.span-2 .bt-name { font-size: 32px; }
+.bt-count {
+  font-family: var(--ff-display);
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.bento-tile.span-2 .bt-count { font-size: 48px; }
+.bt-desc {
+  font-family: var(--ff-text);
+  font-size: 14px;
+  line-height: 1.65;
+  margin-top: 6px;
+  max-width: 360px;
+}
+.bt-models {
+  font-size: 12px;
+  margin-top: 8px;
+  line-height: 1.7;
+}
+.bt-icon {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 36px;
+  opacity: .15;
+}
+.bento-tile.span-2 .bt-icon { font-size: 52px; }
+.bt-series {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+}
+.bt-series span {
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(255,255,255,.1);
+  color: rgba(255,255,255,.6);
+}
+.bento-tile.warm .bt-series span {
+  background: var(--crimson-pale);
+  color: var(--crimson);
+}
+.bento-tile.ivory .bt-series span {
+  background: var(--parchment);
+  color: var(--umber);
+}
+
+/* ═══════════════════════════════════════════════
    FOOTER
 ═══════════════════════════════════════════════ */
 .doc-footer {
@@ -672,19 +823,20 @@ tr:nth-child(even) td { background: #fdfaf8; }
       <div class="cover-toc-item"><span class="cover-toc-num">§3</span>What Volaris Does Differently</div>
 
       <p class="cover-toc-heading">Design Blueprint</p>
-      <div class="cover-toc-item"><span class="cover-toc-num">§4</span>Site Map — 5 pages, designer brand focus</div>
-      <div class="cover-toc-item"><span class="cover-toc-num">§5</span>Page Wireframes — Homepage · Collections · Product</div>
-      <div class="cover-toc-item"><span class="cover-toc-num">§6</span>Navigation & Footer Structure</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§4</span>The Full Collection — Category Bento Grid</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§5</span>Site Map — 5 pages, designer brand focus</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§6</span>Page Wireframes — Homepage · Collections · Product</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§7</span>Navigation & Footer Structure</div>
 
       <p class="cover-toc-heading">Visual System</p>
-      <div class="cover-toc-item"><span class="cover-toc-num">§7</span>Product Fields & Information Architecture</div>
-      <div class="cover-toc-item"><span class="cover-toc-num">§8</span>Colour Palette · Typography · Brand Voice</div>
-      <div class="cover-toc-item"><span class="cover-toc-num">§9</span>Mobile Strategy</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§8</span>Product Fields & Information Architecture</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§9</span>Colour Palette · Typography · Brand Voice</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§10</span>Mobile Strategy</div>
 
       <p class="cover-toc-heading">Strategy</p>
-      <div class="cover-toc-item"><span class="cover-toc-num">§10</span>The Catalogue-First Philosophy</div>
-      <div class="cover-toc-item"><span class="cover-toc-num">§11</span>House of Ledlum · Warranty · Brand Heritage</div>
-      <div class="cover-toc-item"><span class="cover-toc-num">§12</span>Build Priority Roadmap</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§11</span>The Catalogue-First Philosophy</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§12</span>House of Ledlum · Warranty · Brand Heritage</div>
+      <div class="cover-toc-item"><span class="cover-toc-num">§13</span>Build Priority Roadmap</div>
     </div>
   </div>
 
@@ -964,11 +1116,111 @@ tr:nth-child(even) td { background: #fdfaf8; }
 </div>
 
 <!-- ══════════════════════════════════════════════════
-     §4  SITE MAP
+     §4  THE FULL COLLECTION — BENTO GRID
 ══════════════════════════════════════════════════ -->
 <div class="sec">
   <div class="sec-head">
     <div class="sec-num gold">4</div>
+    <div>
+      <div class="sec-title">The Full Collection</div>
+      <div class="sec-sub">Seven categories, 90+ designs — the complete Volaris range from the 2025 catalogue</div>
+    </div>
+  </div>
+
+  <div class="bento">
+
+    <!-- DOWNROD — Hero tile, spans 2 columns -->
+    <div class="bento-tile dark span-2">
+      <div class="bt-icon">&#x2738;</div>
+      <div class="bt-eyebrow">Ceiling Fans</div>
+      <div class="bt-count">41</div>
+      <div class="bt-name">Downrod Fans</div>
+      <div class="bt-desc">The core collection. Statement designs suspended on a downrod — engineered for rooms with standard to high ceilings. DC motors, hand-balanced blades, CMM from 130 to 364 m³/min.</div>
+      <div class="bt-models">Luna · Trident · Bermuda · Clove · Atlas · Spade · Venus · Basil · Sparta · Palm &nbsp;and 31 more</div>
+    </div>
+
+    <!-- DECORATIVE -->
+    <div class="bento-tile crimson">
+      <div class="bt-icon">&#x2726;</div>
+      <div class="bt-eyebrow">Ceiling Fans</div>
+      <div class="bt-count">10</div>
+      <div class="bt-name">Decorative Fans</div>
+      <div class="bt-desc">Chandeliers meet airflow. Crystal, cage, and sculptural designs that are centrepieces first, fans second.</div>
+      <div class="bt-models">Solace · Victoria · Gothic · Zeus · Zephyr · Jordan · Hera · Ares · Pan · Maple</div>
+    </div>
+
+    <!-- HUGGER -->
+    <div class="bento-tile warm">
+      <div class="bt-icon">&#x25CE;</div>
+      <div class="bt-eyebrow">Ceiling Fans</div>
+      <div class="bt-count">8</div>
+      <div class="bt-name">Hugger Fans</div>
+      <div class="bt-desc">Flush-mount designs for low ceilings. No downrod — the motor hugs the ceiling directly. Ideal for apartments and compact rooms.</div>
+      <div class="bt-models">Venus Hugger · Trident Hugger · Chronos · Cucina Hugger · Elf Hugger · Scorpio Hugger · Dodger Hugger · Venus 2.0</div>
+    </div>
+
+    <!-- TOWER -->
+    <div class="bento-tile slate">
+      <div class="bt-icon">&#x2759;</div>
+      <div class="bt-eyebrow">Floor Standing</div>
+      <div class="bt-count">5</div>
+      <div class="bt-name">Tower Fans</div>
+      <div class="bt-desc">Slim, vertical airflow. The Gale series in four variants plus the ceiling-mounted Aura.</div>
+      <div class="bt-models">Gale · Gale Plus · Gale Max · Gale Lite · Aura</div>
+    </div>
+
+    <!-- BLADELESS -->
+    <div class="bento-tile gold-accent">
+      <div class="bt-icon">&#x25EF;</div>
+      <div class="bt-eyebrow">Modern</div>
+      <div class="bt-count">3</div>
+      <div class="bt-name">Bladeless Fans</div>
+      <div class="bt-desc">No visible blades. Safe, silent, sculptural — the future of personal airflow.</div>
+      <div class="bt-models">Exhalia · Portal · Iris</div>
+    </div>
+
+    <!-- PEDESTAL & STAND — spans 2 columns -->
+    <div class="bento-tile warm span-2">
+      <div class="bt-icon">&#x2740;</div>
+      <div class="bt-eyebrow">6 Series · Pedestal · Tripod · Wall · Floor · Table</div>
+      <div class="bt-count">17</div>
+      <div class="bt-name">Pedestal & Stand</div>
+      <div class="bt-desc">Versatile designs across six curated series — each available in multiple form factors. Industrial-luxe metals, warm wooden tripods, and compact table fans.</div>
+      <div class="bt-series">
+        <span>Artemis — 2 models</span>
+        <span>Lance — 3 models</span>
+        <span>Mercury — 3 models</span>
+        <span>Pluto — 1 model</span>
+        <span>Bass — 3 models</span>
+        <span>Mace — 5 models</span>
+      </div>
+    </div>
+
+    <!-- EXHAUST -->
+    <div class="bento-tile ivory">
+      <div class="bt-icon">&#x2941;</div>
+      <div class="bt-eyebrow">Utility</div>
+      <div class="bt-count">6</div>
+      <div class="bt-name">Exhaust Fans</div>
+      <div class="bt-desc">Kitchen and bathroom ventilation — discreet, efficient, purpose-built.</div>
+      <div class="bt-models">Master · Rigid · Tech · Angelo · Zoro · Robin</div>
+    </div>
+
+  </div>
+
+  <div class="callout gold" style="margin-top:22px;">
+    <h4>How This Maps to the Website</h4>
+    <p>Each bento tile above becomes a <strong>collection landing page</strong> on the website. The three ceiling fan sub-categories (Downrod, Hugger, Decorative) live under a single "Ceiling Fans" parent with tab navigation. Tower and Bladeless are separate top-level collections. The six Pedestal & Stand series each get their own filterable sub-section. Exhaust is a utility category — present but not prominently featured in the hero or marketing sections.</p>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     §5  SITE MAP
+══════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-num gold">5</div>
     <div>
       <div class="sec-title">Recommended Site Map</div>
       <div class="sec-sub">5 must-have pages — lean, purposeful, every page earns its place</div>
@@ -1037,8 +1289,6 @@ tr:nth-child(even) td { background: #fdfaf8; }
         <div class="sm-page">Contact</div>
         <div class="sm-item">Homeowner enquiry</div>
         <div class="sm-item">Architect / ID enquiry</div>
-        <div class="sm-item">Bulk / project enquiry</div>
-        <div class="sm-item">Media enquiry</div>
         <div class="sm-item">Office address</div>
         <div class="sm-item">Social links</div>
       </div>
@@ -1061,11 +1311,11 @@ tr:nth-child(even) td { background: #fdfaf8; }
 </div>
 
 <!-- ══════════════════════════════════════════════════
-     §5  PAGE WIREFRAMES
+     §6  PAGE WIREFRAMES
 ══════════════════════════════════════════════════ -->
 <div class="sec">
   <div class="sec-head">
-    <div class="sec-num">5</div>
+    <div class="sec-num">6</div>
     <div>
       <div class="sec-title">Page Wireframes</div>
       <div class="sec-sub">Visual layout blueprints with every section, component, and design decision annotated</div>
@@ -1073,7 +1323,7 @@ tr:nth-child(even) td { background: #fdfaf8; }
   </div>
 
   <!-- HOMEPAGE -->
-  <div class="subsec">5.1 — Homepage</div>
+  <div class="subsec">6.1 — Homepage</div>
   <div class="browser">
     <div class="brow-bar">
       <div class="dots"><span></span><span></span><span></span></div>
@@ -1213,7 +1463,7 @@ tr:nth-child(even) td { background: #fdfaf8; }
   </div>
 
   <!-- COLLECTIONS PAGE -->
-  <div class="subsec">5.2 — Collections / Product Listing Page</div>
+  <div class="subsec">6.2 — Collections / Product Listing Page</div>
   <div class="browser">
     <div class="brow-bar">
       <div class="dots"><span></span><span></span><span></span></div>
@@ -1335,7 +1585,7 @@ tr:nth-child(even) td { background: #fdfaf8; }
   </div>
 
   <!-- PRODUCT DETAIL -->
-  <div class="subsec">5.3 — Product Detail Page</div>
+  <div class="subsec">6.3 — Product Detail Page</div>
   <div class="browser">
     <div class="brow-bar">
       <div class="dots"><span></span><span></span><span></span></div>
@@ -1444,18 +1694,18 @@ tr:nth-child(even) td { background: #fdfaf8; }
 </div>
 
 <!-- ══════════════════════════════════════════════════
-     §6  NAVIGATION & FOOTER
+     §7  NAVIGATION & FOOTER
 ══════════════════════════════════════════════════ -->
 <div class="sec">
   <div class="sec-head">
-    <div class="sec-num">6</div>
+    <div class="sec-num">7</div>
     <div>
       <div class="sec-title">Navigation & Footer</div>
       <div class="sec-sub">Minimal nav with mega menu, and a footer that builds real-world trust</div>
     </div>
   </div>
 
-  <div class="subsec" style="margin-top:0;">6.1 — Mega Menu (Collections open)</div>
+  <div class="subsec" style="margin-top:0;">7.1 — Mega Menu (Collections open)</div>
   <div style="border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);">
     <div class="nav-m">
       <div class="nav-m-logo">VOLARIS</div>
@@ -1502,7 +1752,7 @@ tr:nth-child(even) td { background: #fdfaf8; }
     </div>
   </div>
 
-  <div class="subsec">6.2 — Footer</div>
+  <div class="subsec">7.2 — Footer</div>
   <div style="background:var(--wine);border-radius:var(--r-lg);padding:38px;">
     <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px;margin-bottom:32px;">
       <div>
@@ -1538,11 +1788,11 @@ tr:nth-child(even) td { background: #fdfaf8; }
 </div>
 
 <!-- ══════════════════════════════════════════════════
-     §7  PRODUCT FIELD MAP
+     §8  PRODUCT FIELD MAP
 ══════════════════════════════════════════════════ -->
 <div class="sec">
   <div class="sec-head">
-    <div class="sec-num">7</div>
+    <div class="sec-num">8</div>
     <div>
       <div class="sec-title">Product Information Architecture</div>
       <div class="sec-sub">All 20 catalogue fields mapped to their exact display location and visual format</div>
@@ -1585,18 +1835,18 @@ tr:nth-child(even) td { background: #fdfaf8; }
 </div>
 
 <!-- ══════════════════════════════════════════════════
-     §8  COLOUR + TYPOGRAPHY + BRAND VOICE
+     §9  COLOUR + TYPOGRAPHY + BRAND VOICE
 ══════════════════════════════════════════════════ -->
 <div class="sec">
   <div class="sec-head">
-    <div class="sec-num gold">8</div>
+    <div class="sec-num gold">9</div>
     <div>
       <div class="sec-title">Colour, Typography & Brand Voice</div>
       <div class="sec-sub">A visual system derived from the Volaris logo — every colour has a reason</div>
     </div>
   </div>
 
-  <div class="subsec" style="margin-top:0;">8.1 — Colour Palette</div>
+  <div class="subsec" style="margin-top:0;">9.1 — Colour Palette</div>
   <div class="callout red" style="margin-bottom:18px;">
     <h4>Palette Origin — The Volaris Logo</h4>
     <p>The logo establishes three non-negotiable signals: a deep crimson-red as the dominant brand colour, warm ivory as the background it lives on, and a gold script accent that adds warmth. The full website palette flows from these three starting points — expanding them into a complete warm editorial system, while never straying from the brand's inherent feeling of crafted luxury.</p>
@@ -1612,7 +1862,7 @@ tr:nth-child(even) td { background: #fdfaf8; }
     <div class="sw-card"><div class="sw-block" style="background:#8a6a6a;"></div><div class="sw-info"><strong>Stone</strong><code>#8A6A6A</code><small>Secondary text, labels</small></div></div>
   </div>
 
-  <div class="subsec">8.2 — Typography</div>
+  <div class="subsec">9.2 — Typography</div>
   <div class="card" style="margin-bottom:12px;">
     <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Display & Headings — Playfair Display</div>
     <div style="font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:var(--ink);line-height:1.05;">Crafting Airflow.</div>
@@ -1634,7 +1884,7 @@ tr:nth-child(even) td { background: #fdfaf8; }
     <div style="font-size:11px;color:var(--stone);margin-top:12px;">Navigation links, buttons, product specs, filter labels, badges, all UI elements</div>
   </div>
 
-  <div class="subsec">8.3 — Brand Voice</div>
+  <div class="subsec">9.3 — Brand Voice</div>
   <div class="g2">
     <div class="card">
       <p style="font-weight:700;font-size:13px;color:var(--ink);margin-bottom:12px;">✓ Say this</p>
@@ -1666,11 +1916,11 @@ tr:nth-child(even) td { background: #fdfaf8; }
 </div>
 
 <!-- ══════════════════════════════════════════════════
-     §9  MOBILE
+     §10  MOBILE
 ══════════════════════════════════════════════════ -->
 <div class="sec">
   <div class="sec-head">
-    <div class="sec-num">9</div>
+    <div class="sec-num">10</div>
     <div>
       <div class="sec-title">Mobile Strategy</div>
       <div class="sec-sub">Over 60% of Indian web traffic arrives on mobile — every layout decision starts here</div>
@@ -1717,11 +1967,11 @@ tr:nth-child(even) td { background: #fdfaf8; }
 </div>
 
 <!-- ══════════════════════════════════════════════════
-     §10  CATALOGUE-FIRST
+     §11  CATALOGUE-FIRST
 ══════════════════════════════════════════════════ -->
 <div class="sec">
   <div class="sec-head">
-    <div class="sec-num gold">10</div>
+    <div class="sec-num gold">11</div>
     <div>
       <div class="sec-title">The Catalogue-First Philosophy</div>
       <div class="sec-sub">Why Download Catalogue is the most powerful CTA a premium Indian fan brand can use</div>
@@ -1776,18 +2026,18 @@ tr:nth-child(even) td { background: #fdfaf8; }
 </div>
 
 <!-- ══════════════════════════════════════════════════
-     §11  HOUSE OF LEDLUM · WARRANTY · BRAND HERITAGE
+     §12  HOUSE OF LEDLUM · WARRANTY · BRAND HERITAGE
 ══════════════════════════════════════════════════ -->
 <div class="sec">
   <div class="sec-head">
-    <div class="sec-num gold">11</div>
+    <div class="sec-num gold">12</div>
     <div>
       <div class="sec-title">House of Ledlum, Warranty & Brand Heritage</div>
       <div class="sec-sub">Brand pillars, sister companies, warranty structure, and safety content — all sourced from the official 2025 catalogue</div>
     </div>
   </div>
 
-  <div class="subsec" style="margin-top:0;">11.1 — The House of Ledlum</div>
+  <div class="subsec" style="margin-top:0;">12.1 — The House of Ledlum</div>
   <div class="callout wine">
     <h4>A Family of Brands, Not a Single Product</h4>
     <p>Volaris is an integral part of <strong>Ledlum Lighting Solutions LLP</strong>, founded in 2017 with a drive to provide energy-efficient and minimalistic lighting designs. The House of Ledlum is a design ecosystem — four sister brands, each with a distinct purpose. This family backing is a competitive moat that no other Indian fan brand can replicate.</p>
@@ -1817,7 +2067,7 @@ tr:nth-child(even) td { background: #fdfaf8; }
     </div>
   </div>
 
-  <div class="subsec">11.2 — Warranty Structure</div>
+  <div class="subsec">12.2 — Warranty Structure</div>
   <div class="callout red">
     <h4>Warranty Periods — Display on Every Product Page</h4>
     <p>Volaris's warranty is a strong selling point, particularly the 5-year motor warranty on ceiling fans. This data should be visible prominently on the product detail page and on the About/Warranty section.</p>
@@ -1871,7 +2121,7 @@ tr:nth-child(even) td { background: #fdfaf8; }
     </div>
   </div>
 
-  <div class="subsec">11.3 — RPM vs CMM/CFM Education</div>
+  <div class="subsec">12.3 — RPM vs CMM/CFM Education</div>
   <div class="callout gold">
     <h4>Airflow Education — A Key SEO and Brand Differentiator</h4>
     <p>The catalogue dedicates a full page to explaining <strong>"RPM vs CFM"</strong> — a topic no competitor covers online. This becomes a dedicated page (or section) on the Volaris website, owning the search query "what is CMM in ceiling fans India." Key insights from the catalogue to feature:</p>
@@ -1887,11 +2137,11 @@ tr:nth-child(even) td { background: #fdfaf8; }
 </div>
 
 <!-- ══════════════════════════════════════════════════
-     §12  BUILD PRIORITY
+     §13  BUILD PRIORITY
 ══════════════════════════════════════════════════ -->
 <div class="sec">
   <div class="sec-head">
-    <div class="sec-num">12</div>
+    <div class="sec-num">13</div>
     <div>
       <div class="sec-title">Build Priority Roadmap</div>
       <div class="sec-sub">Phase 1, 2 and 3 — sequenced by maximum brand and business impact</div>
